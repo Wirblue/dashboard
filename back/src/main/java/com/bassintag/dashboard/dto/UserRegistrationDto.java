@@ -16,6 +16,7 @@ public class UserRegistrationDto {
     @Size(min = 2, max = 255)
     private String password;
 
+    @NotNull
     @Size(min = 2, max = 255)
     private String passwordValidation;
 }
