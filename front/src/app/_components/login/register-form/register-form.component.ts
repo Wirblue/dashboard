@@ -3,11 +3,11 @@ import {LoginRegister} from '../../../_class/login-register';
 import {LoginService} from '../../../_services/login.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-register-form',
+  templateUrl: './register-form.component.html',
+  styleUrls: ['./register-form.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterFormComponent implements OnInit {
 
   constructor(private loginService: LoginService) {
     this.user = new LoginRegister('', '', '')

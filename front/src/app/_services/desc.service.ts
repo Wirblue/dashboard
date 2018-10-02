@@ -129,7 +129,7 @@ export class DescService {
 
   getServices(): Observable<ServiceDesc[]> {
     return of(this.tmp_service);
-    /*return this.http.get<ServiceDesc[]>(GlobalVariable.BASE_API_URL + '/desc')
+    /*return this.http.get<ServiceDesc[]>(GlobalVariable.BASE_API_URL + '/services')
       .pipe(
         catchError(this.handleError('getServices', []))
       );*/

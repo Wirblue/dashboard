@@ -5,6 +5,7 @@ import { Observable, of} from 'rxjs';
 import { GlobalVariable } from '../globals';
 import {LoginRegister} from '../_class/login-register';
 import {LoginLogin} from '../_class/login-login';
+import { Router } from '@angular/router';
 
 interface Post {
   title: string;
@@ -16,7 +17,7 @@ interface Post {
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -25,20 +26,43 @@ export class LoginService {
     })
   };
 
+  log = false;
   token: string;
 
   register(loginRegister: LoginRegister): void {
     this.http.post(GlobalVariable.BASE_API_URL + '/users/register', loginRegister, this.httpOptions)
-      .pipe(
-        catchError(this.handleError('register', []))
-      ).subscribe(res => {console.log(res.json(à))});
+      .pipe(catchError(this.handleError('register', [])))
+      .subscribe(res => {
+          console.log(res);
+        }
+      );
   }
 
   login(loginLogin: LoginLogin): void {
-    this.http.post(GlobalVariable.BASE_API_URL + '/login', loginLogin)
-      .subscribe((res) => {
-        console.log(res);
-      });
+    this.http.post(GlobalVariable.BASE_API_URL + '/login', loginLogin,
+      {
+        observe: 'response',
+      }
+    )
+      .subscribe(
+        (res) => {
+          this.token = res.headers.get('Authorization');
+          this.log = true;
+        }
+      );
+  }
+
+  logout(): void {
+    this.log = false;
+    this.token = null;
+  }
+
+  isLog(): boolean {
+    return this.log;
+  }
+
+  getToken(): string {
+    return this.token;
   }
 
   /**
