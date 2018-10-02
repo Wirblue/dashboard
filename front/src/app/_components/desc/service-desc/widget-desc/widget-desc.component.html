@@ -1,0 +1,9 @@
+<div class="container-fluid wdesc">
+  <h4 class="display-4" style="font-size: 2rem"><b>{{widget.name}}</b></h4>
+  <p><i>{{widget.desc}}</i></p>
+  <ul>
+    <li *ngFor="let param of widget.params">
+      {{param.name}}: {{param.type}}
+    </li>
+  </ul>
+</div>
