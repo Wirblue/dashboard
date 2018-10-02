@@ -1,0 +1,11 @@
+<form>
+  First name:<br>
+  <input type="text" name="username" [(ngModel)]="user.username">
+  <br>
+  Last name:<br>
+  <input type="password" name="password" [(ngModel)]="user.password">
+  <br><br>
+  <button (click)="login()">Click me!</button>
+</form>
+<br><br>
+<app-register style="background: red"></app-register>

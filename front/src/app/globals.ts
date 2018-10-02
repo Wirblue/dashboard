@@ -1,3 +1,3 @@
 export const GlobalVariable = Object.freeze({
-  BASE_API_URL: '10.18.207.251:8080'
+  BASE_API_URL: 'http://10.18.208.11:8080'
 });

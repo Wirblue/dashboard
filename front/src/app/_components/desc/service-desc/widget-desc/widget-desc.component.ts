@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {WidgetDesc} from '../../../../_class/widget-desc';
+import { Component, Input, OnInit } from '@angular/core';
+import { WidgetDesc } from '../../../../_class/widget-desc';
 
 @Component({
   selector: 'app-widget-desc',

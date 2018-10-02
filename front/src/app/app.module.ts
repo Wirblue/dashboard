@@ -7,15 +7,19 @@ import { AppComponent } from './app.component';
 import { DescComponent } from './_components/desc/desc.component';
 import { ServiceDescComponent } from './_components/desc/service-desc/service-desc.component';
 import { WidgetDescComponent} from './_components/desc/service-desc/widget-desc/widget-desc.component';
-import {HttpModule} from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './_components/login/login.component';
+import { RegisterComponent } from './_components/login/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DescComponent,
     ServiceDescComponent,
-    WidgetDescComponent
+    WidgetDescComponent,
+    LoginComponent,
+    RegisterComponent
   ],
 
   imports: [
