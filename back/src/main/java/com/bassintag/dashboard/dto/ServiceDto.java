@@ -1,6 +1,9 @@
 package com.bassintag.dashboard.dto;
 
+import com.bassintag.dashboard.service.IService;
 import lombok.Data;
+
+import java.util.Arrays;
 
 /**
  * ServiceDto.java created for dashboard
@@ -11,6 +14,13 @@ import lombok.Data;
  */
 @Data
 public class ServiceDto {
+
+    public ServiceDto(IService service) {
+        name = service.getName();
+        widgets = Arrays.stream(service.getWidgets())
+                .map(WidgetDto::new)
+                .toArray(WidgetDto[]::new);
+    }
 
     private String name;
 

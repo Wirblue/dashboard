@@ -47,7 +47,7 @@ public class WeatherService implements IService {
 
     @Override
     public String getName() {
-        return "Weather";
+        return "weather";
     }
 
     @Override

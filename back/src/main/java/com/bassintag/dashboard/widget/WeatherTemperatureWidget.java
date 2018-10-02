@@ -21,7 +21,7 @@ public class WeatherTemperatureWidget implements IWidgetDefinition {
 
     @Override
     public String getName() {
-        return "Temperature";
+        return "temperature";
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.bassintag.dashboard.dto;
 
+import com.bassintag.dashboard.widget.IWidgetDefinition;
 import lombok.Data;
 
 /**
@@ -11,6 +12,12 @@ import lombok.Data;
  */
 @Data
 public class WidgetDto {
+
+    public WidgetDto(IWidgetDefinition widget) {
+        name = widget.getName();
+        description = widget.getDescription();
+        params = widget.getParams();
+    }
 
     private String name;
 
