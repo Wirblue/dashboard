@@ -1,0 +1,10 @@
+<form>
+  username<br>
+  <input type="text" name="username" [(ngModel)]="user.username">
+  <br>
+  passw<br>
+  <input type="password" name="password" [(ngModel)]="user.password">
+  <input type="password" name="password" [(ngModel)]="user.password_confirmation">
+  <br><br>
+  <button (click)="register()">Click me!</button>
+</form>
