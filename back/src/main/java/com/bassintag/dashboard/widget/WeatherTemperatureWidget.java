@@ -1,6 +1,7 @@
 package com.bassintag.dashboard.widget;
 
 import com.bassintag.dashboard.dto.ParamDto;
+import com.bassintag.dashboard.service.application.WeatherApplicationService;
 
 /**
  * WeatherTemperatureWidget.java created for dashboard
@@ -9,12 +10,15 @@ import com.bassintag.dashboard.dto.ParamDto;
  * @version 1.0
  * @since 01/10/2018
  */
-public class WeatherTemperatureWidget implements IWidgetDefinition {
+public class WeatherTemperatureWidget extends WidgetDefinition<WeatherApplicationService> {
 
-    private final ParamDto[] params;
+    public WeatherTemperatureWidget(WeatherApplicationService weatherApplicationService) {
+        super(weatherApplicationService);
+    }
 
-    public WeatherTemperatureWidget() {
-        params = new ParamDto[]{
+    @Override
+    protected ParamDto[] setupParams() {
+        return new ParamDto[]{
                 new ParamDto("city", "string")
         };
     }
@@ -27,10 +31,5 @@ public class WeatherTemperatureWidget implements IWidgetDefinition {
     @Override
     public String getDescription() {
         return "Displays the temperature in an area";
-    }
-
-    @Override
-    public ParamDto[] getParams() {
-        return params;
     }
 }

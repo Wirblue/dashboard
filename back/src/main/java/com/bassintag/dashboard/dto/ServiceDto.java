@@ -1,6 +1,6 @@
 package com.bassintag.dashboard.dto;
 
-import com.bassintag.dashboard.service.IService;
+import com.bassintag.dashboard.service.application.IApplicationService;
 import lombok.Data;
 
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 @Data
 public class ServiceDto {
 
-    public ServiceDto(IService service) {
+    public ServiceDto(IApplicationService service) {
         name = service.getName();
         widgets = Arrays.stream(service.getWidgets())
                 .map(WidgetDto::new)

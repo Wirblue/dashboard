@@ -23,6 +23,7 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final JwtConfiguration jwtConfiguration;
+
     private final AuthenticationManager authenticationManager;
 
     public JwtAuthenticationFilter(JwtConfiguration jwtConfiguration, AuthenticationManager authenticationManager) {
@@ -48,11 +49,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
         String token = JWT.create()
                 .withSubject(((User) authResult.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + jwtConfiguration.getExpiration()))
                 .sign(HMAC512(jwtConfiguration.getSecret().getBytes()));
         response.addHeader("Authorization", "Bearer " + token);
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
     }
 }

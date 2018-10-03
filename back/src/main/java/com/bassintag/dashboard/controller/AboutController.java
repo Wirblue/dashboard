@@ -4,7 +4,7 @@ import com.bassintag.dashboard.dto.AboutDto;
 import com.bassintag.dashboard.dto.ClientDto;
 import com.bassintag.dashboard.dto.ServerDto;
 import com.bassintag.dashboard.dto.ServiceDto;
-import com.bassintag.dashboard.service.IService;
+import com.bassintag.dashboard.service.application.IApplicationService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +24,7 @@ public class AboutController {
 
     private final ServerDto serverDtoCache;
 
-    public AboutController(@Autowired List<? extends IService> services) {
+    public AboutController(@Autowired List<? extends IApplicationService> services) {
         serverDtoCache = new ServerDto();
         serverDtoCache.setServices(services.stream().map(ServiceDto::new).toArray(ServiceDto[]::new));
     }

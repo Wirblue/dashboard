@@ -1,11 +1,10 @@
 package com.bassintag.dashboard.model;
 
 import lombok.Data;
+import org.springframework.context.annotation.Lazy;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,4 +17,9 @@ public class User {
     private String username;
 
     private String password;
+
+    @Lazy
+    @OneToMany
+    List<WidgetSubscription> widgets;
+
 }

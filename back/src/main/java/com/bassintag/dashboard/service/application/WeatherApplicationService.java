@@ -1,4 +1,4 @@
-package com.bassintag.dashboard.service;
+package com.bassintag.dashboard.service.application;
 
 import com.bassintag.dashboard.configuration.WeatherAppConfiguration;
 import com.bassintag.dashboard.widget.IWidgetDefinition;
@@ -17,19 +17,15 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @since 01/10/2018
  */
 @Service
-public class WeatherService implements IService {
+public class WeatherApplicationService extends ApplicationService {
 
     private final WeatherAppConfiguration weatherAppConfiguration;
 
-    private final IWidgetDefinition[] widgets;
-
     private RestTemplate restTemplate;
 
-    public WeatherService(WeatherAppConfiguration weatherAppConfiguration) {
+    public WeatherApplicationService(WeatherAppConfiguration weatherAppConfiguration) {
+        super("weather");
         this.weatherAppConfiguration = weatherAppConfiguration;
-        this.widgets = new IWidgetDefinition[]{
-                new WeatherTemperatureWidget()
-        };
         restTemplate = new RestTemplateBuilder().build();
     }
 
@@ -46,12 +42,9 @@ public class WeatherService implements IService {
     }
 
     @Override
-    public String getName() {
-        return "weather";
-    }
-
-    @Override
-    public IWidgetDefinition[] getWidgets() {
-        return widgets;
+    protected IWidgetDefinition[] setupWidgets() {
+        return new IWidgetDefinition[]{
+                new WeatherTemperatureWidget(this)
+        };
     }
 }

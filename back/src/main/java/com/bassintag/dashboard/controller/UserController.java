@@ -25,7 +25,7 @@ public class UserController {
 
     @PostMapping("/register")
     public UserCreationDto register(@RequestBody @Valid UserRegistrationDto userRegistrationDto) {
-        if (!userRegistrationDto.getPassword().equals(userRegistrationDto.getPasswordValidation())) {
+        if (!userRegistrationDto.getPassword().equals(userRegistrationDto.getPasswordConfirmation())) {
             throw new BadRequestException("Both password must match");
         }
         if (userService.userExists(userRegistrationDto.getUsername())) {

@@ -18,5 +18,5 @@ public class UserRegistrationDto {
 
     @NotNull
     @Size(min = 2, max = 255)
-    private String passwordValidation;
+    private String passwordConfirmation;
 }
