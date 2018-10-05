@@ -1,14 +1,12 @@
 package com.bassintag.dashboard.widget;
 
-import com.bassintag.dashboard.dto.ParamDto;
-import com.bassintag.dashboard.dto.ParamValueDto;
+import com.bassintag.dashboard.dto.*;
 import com.bassintag.dashboard.exception.BadRequestException;
 import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.model.WidgetSubscription;
 import com.bassintag.dashboard.service.application.IApplicationService;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,14 +21,17 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
 
     private final T service;
 
+    private final String name;
+    private final String description;
+
     private final ParamDto[] params;
 
-    private final String[] paramsNames;
-
-    public WidgetDefinition(T service) {
+    public WidgetDefinition(T service, String name, String description) {
         this.service = service;
         params = setupParams();
-        paramsNames = Arrays.stream(params).map(ParamDto::getName).toArray(String[]::new);
+        this.name = name;
+        this.description = description;
+        service.registerWidget(this);
     }
 
     protected abstract ParamDto[] setupParams();
@@ -64,11 +65,43 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
         }
         WidgetSubscription widgetSubscription = new WidgetSubscription();
         widgetSubscription.setUser(user);
+        widgetSubscription.setParams(Arrays.stream(params).map(ParamValueDto::toWidgetParam)
+                .peek(p -> p.setWidget(widgetSubscription)).collect(Collectors.toList()));
+        widgetSubscription.setWidgetName(getName());
+        widgetSubscription.setServiceName(getService().getName());
         return widgetSubscription;
+    }
+
+    protected abstract WidgetDataDto renderData(User user, ParamListDto params);
+
+    @Override
+    public RenderedWidgetDto render(User user, ParamValueDto[] params) {
+        RenderedWidgetDto renderedWidgetDto = new RenderedWidgetDto();
+        renderedWidgetDto.setWidget(new WidgetDto(this));
+        ParamListDto paramList = new ParamListDto();
+        paramList.setParams(params);
+        renderedWidgetDto.setData(renderData(user, paramList));
+        return renderedWidgetDto;
+    }
+
+    public T getService() {
+        return service;
     }
 
     @Override
     public ParamDto[] getParams() {
         return params;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+
 }

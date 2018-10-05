@@ -1,10 +1,9 @@
 package com.bassintag.dashboard.service.application;
 
-import com.bassintag.dashboard.exception.NotFoundException;
 import com.bassintag.dashboard.widget.IWidgetDefinition;
 
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ApplicationService.java created for dashboard
@@ -15,29 +14,23 @@ import java.util.Optional;
  */
 public abstract class ApplicationService implements IApplicationService {
 
-    private final IWidgetDefinition[] widgets;
-
     private final String name;
 
+    private List<IWidgetDefinition> widgets;
+
     protected ApplicationService(String name) {
-        widgets = setupWidgets();
         this.name = name;
+        widgets = new ArrayList<>();
     }
 
-    protected abstract IWidgetDefinition[] setupWidgets();
-
     @Override
-    public IWidgetDefinition getWidgetByName(String name) {
-        Optional<IWidgetDefinition> widget = Arrays.stream(getWidgets()).filter(w -> w.getName().equals(name)).findFirst();
-        if (!widget.isPresent()) {
-            throw new NotFoundException("No widget could be found with name: " + name);
-        }
-        return widget.get();
+    public void registerWidget(IWidgetDefinition widget) {
+        widgets.add(widget);
     }
 
     @Override
     public IWidgetDefinition[] getWidgets() {
-        return widgets;
+        return widgets.toArray(new IWidgetDefinition[0]);
     }
 
     @Override

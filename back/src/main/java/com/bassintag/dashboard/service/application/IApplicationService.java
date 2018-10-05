@@ -2,8 +2,6 @@ package com.bassintag.dashboard.service.application;
 
 import com.bassintag.dashboard.widget.IWidgetDefinition;
 
-import java.util.Optional;
-
 /**
  * IApplicationService.java created for dashboard
  *
@@ -15,7 +13,7 @@ public interface IApplicationService {
 
     String getName();
 
-    IWidgetDefinition[] getWidgets();
+    void registerWidget(IWidgetDefinition widget);
 
-    IWidgetDefinition getWidgetByName(String name);
+    IWidgetDefinition[] getWidgets();
 }
