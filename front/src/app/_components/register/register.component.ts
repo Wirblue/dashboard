@@ -11,7 +11,7 @@ import index from '@angular/cli/lib/cli';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css', '../login/login.component.css']
 })
 export class RegisterComponent implements OnInit {
 
