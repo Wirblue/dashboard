@@ -10,12 +10,13 @@ import { ServiceDescComponent } from './_components/desc/service-desc/service-de
 import { WidgetDescComponent} from './_components/desc/service-desc/widget-desc/widget-desc.component';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginFormComponent } from './_components/login/login-form/login-form.component';
-import { RegisterFormComponent } from './_components/login/register-form/register-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './_components/register/register.component';
 import { LoginComponent } from './_components/login/login.component';
 
 import { AuthGuard } from './_guards/auth.guard';
 import { LogGuard } from './_guards/log.guard';
+import { AlertsComponent } from './_components/alerts/alerts.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,10 @@ import { LogGuard } from './_guards/log.guard';
     DescComponent,
     ServiceDescComponent,
     WidgetDescComponent,
-    LoginFormComponent,
-    RegisterFormComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    LoginComponent,
+    AlertsComponent
   ],
 
   imports: [
@@ -33,7 +35,8 @@ import { LogGuard } from './_guards/log.guard';
     BrowserModule,
     FormsModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthGuard,
