@@ -1,7 +1,7 @@
 package com.bassintag.dashboard.service.application;
 
 import com.bassintag.dashboard.configuration.BinanceConfiguration;
-import com.bassintag.dashboard.dto.CryptoTickerDto;
+import com.bassintag.dashboard.dto.crypto.CryptoTickerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;

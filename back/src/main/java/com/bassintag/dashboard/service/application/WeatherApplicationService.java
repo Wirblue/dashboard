@@ -1,13 +1,10 @@
 package com.bassintag.dashboard.service.application;
 
 import com.bassintag.dashboard.configuration.WeatherAppConfiguration;
-import com.bassintag.dashboard.dto.WeatherConditionsDto;
-import com.bassintag.dashboard.dto.WeatherDataDto;
-import com.bassintag.dashboard.dto.WeatherSysDto;
-import com.bassintag.dashboard.dto.WeatherTemperatureDto;
-import com.bassintag.dashboard.widget.IWidgetDefinition;
-import com.bassintag.dashboard.widget.WeatherConditionsWidget;
-import com.bassintag.dashboard.widget.WeatherTemperatureWidget;
+import com.bassintag.dashboard.dto.weather.WeatherConditionsDto;
+import com.bassintag.dashboard.dto.weather.WeatherDataDto;
+import com.bassintag.dashboard.dto.weather.WeatherSysDto;
+import com.bassintag.dashboard.dto.weather.WeatherTemperatureDto;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;

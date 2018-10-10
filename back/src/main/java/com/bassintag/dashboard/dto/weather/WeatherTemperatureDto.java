@@ -1,4 +1,4 @@
-package com.bassintag.dashboard.dto;
+package com.bassintag.dashboard.dto.weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.bassintag.dashboard.widget;
 
 import com.bassintag.dashboard.dto.ParamListDto;
-import com.bassintag.dashboard.dto.WeatherConditionsDto;
+import com.bassintag.dashboard.dto.weather.WeatherConditionsDto;
 import com.bassintag.dashboard.dto.WidgetDataDto;
 import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.service.application.WeatherApplicationService;
@@ -26,10 +26,11 @@ public class WeatherConditionsWidget extends WeatherWidget {
     @Override
     protected WidgetDataDto renderData(User user, ParamListDto params) {
         WidgetDataDto widgetDataDto = new WidgetDataDto();
-        WeatherConditionsDto weather = getService().getWeatherConditions(params.getString("city"));
-        widgetDataDto.setTitle(weather.getMain());
-        widgetDataDto.setSubtitle(weather.getDescription());
-        widgetDataDto.setBackgroundImage(getService().getIconUrl(weather.getIcon()));
+        String city = params.getString("city");
+        WeatherConditionsDto weather = getService().getWeatherConditions(city);
+        widgetDataDto.setTitle(city);
+        widgetDataDto.setSubtitle(weather.getMain() + " - " + weather.getDescription());
+        widgetDataDto.setIconImage(getService().getIconUrl(weather.getIcon()));
         return widgetDataDto;
     }
 }

@@ -1,6 +1,6 @@
 package com.bassintag.dashboard.widget;
 
-import com.bassintag.dashboard.dto.CryptoTickerDto;
+import com.bassintag.dashboard.dto.crypto.CryptoTickerDto;
 import com.bassintag.dashboard.dto.ParamDto;
 import com.bassintag.dashboard.dto.ParamListDto;
 import com.bassintag.dashboard.dto.WidgetDataDto;
@@ -35,7 +35,8 @@ public class CryptoTickerWidget extends WidgetDefinition<CryptoApplicationServic
     protected WidgetDataDto renderData(User user, ParamListDto params) {
         WidgetDataDto widgetDataDto = new WidgetDataDto();
         CryptoTickerDto ticker = getService().getPairPrice(params.getString("pair"));
-        widgetDataDto.setTitle(ticker.getSymbol() + ": " + ticker.getPrice());
+        widgetDataDto.setTitle(ticker.getSymbol());
+        widgetDataDto.setSubtitle("Exchange rate: " + ticker.getPrice().replaceAll("0+$", ""));
         return widgetDataDto;
     }
 

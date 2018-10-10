@@ -103,5 +103,8 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
         return description;
     }
 
-
+    @Override
+    public boolean allowsMultiple() {
+        return true;
+    }
 }

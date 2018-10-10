@@ -1,8 +1,7 @@
 package com.bassintag.dashboard.widget;
 
 import com.bassintag.dashboard.dto.ParamListDto;
-import com.bassintag.dashboard.dto.WeatherConditionsDto;
-import com.bassintag.dashboard.dto.WeatherSysDto;
+import com.bassintag.dashboard.dto.weather.WeatherSysDto;
 import com.bassintag.dashboard.dto.WidgetDataDto;
 import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.service.application.WeatherApplicationService;
@@ -33,10 +32,12 @@ public class WeatherSunInfoWidget extends WeatherWidget {
     @Override
     protected WidgetDataDto renderData(User user, ParamListDto params) {
         WidgetDataDto widgetDataDto = new WidgetDataDto();
-        WeatherSysDto weather = getService().getWeatherSysInfo(params.getString("city"));
+        String city = params.getString("city");
+        WeatherSysDto weather = getService().getWeatherSysInfo(city);
         Date sunsetDate = new Date(weather.getSunset() * 1000);
         Date sunriseDate = new Date(weather.getSunrise() * 1000);
-        widgetDataDto.setTitle(String.format("Sunrise: %s, Sunset: %s", dateFormat.format(sunriseDate), dateFormat.format(sunsetDate)));
+        widgetDataDto.setTitle(city);
+        widgetDataDto.setSubtitle(String.format("Sunrise: %s, Sunset: %s", dateFormat.format(sunriseDate), dateFormat.format(sunsetDate)));
         return widgetDataDto;
     }
 }

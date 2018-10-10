@@ -1,4 +1,4 @@
-package com.bassintag.dashboard.dto;
+package com.bassintag.dashboard.dto.crypto;
 
 import lombok.Data;
 

@@ -1,5 +1,6 @@
 package com.bassintag.dashboard.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Data;
  * @since 01/10/2018
  */
 @Data
+@AllArgsConstructor
 public class ServerDto {
 
     private ServiceDto[] services;
