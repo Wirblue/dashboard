@@ -19,7 +19,7 @@ export class ServiceDescComponent implements OnInit {
   }
 
   subscribe(widget: WidgetDesc): void {
-    this.serviceService.subscribe(this.service, widget, [new WidgetDestParams('city', 'nancy')]).subscribe();
+    this.serviceService.subscribe(this.service, widget).subscribe();
   }
 
 }

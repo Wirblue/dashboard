@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidgetDescComponent } from './widget-desc.component';
+import { ParamComponent } from './param.component';
 
-describe('WidgetDescComponent', () => {
-  let component: WidgetDescComponent;
-  let fixture: ComponentFixture<WidgetDescComponent>;
+describe('ParamComponent', () => {
+  let component: ParamComponent;
+  let fixture: ComponentFixture<ParamComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WidgetDescComponent ]
+      declarations: [ ParamComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WidgetDescComponent);
+    fixture = TestBed.createComponent(ParamComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

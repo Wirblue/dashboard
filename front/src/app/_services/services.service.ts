@@ -26,9 +26,9 @@ export class ServicesService {
     return this.http.get<ServiceDesc[]>(GlobalVariable.BASE_API_URL + '/services', { headers: this.initHeader() });
   }
 
-  subscribe(service: ServiceDesc, widget: WidgetDesc, param): Observable<Object> {
+  subscribe(service: ServiceDesc, widget: WidgetDesc): Observable<Object> {
     const route = GlobalVariable.BASE_API_URL + '/services/' + service.name + '/widgets/' + widget.name + '/subscribe';
-    return this.http.put(route, { params: param }, { headers: this.initHeader() });
+    return this.http.post(route, { params: widget.params }, { headers: this.initHeader() });
   }
 
   /**

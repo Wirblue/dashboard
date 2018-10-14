@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { DescComponent } from './_components/desc/desc.component';
 import { ServiceDescComponent } from './_components/desc/service-desc/service-desc.component';
-import { WidgetDescComponent} from './_components/desc/service-desc/widget-desc/widget-desc.component';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,19 +19,20 @@ import { AlertsComponent } from './_components/alerts/alerts.component';
 import { HomeComponent } from './_components/home/home.component';
 import { GridComponent } from './_components/home/grid/grid.component';
 import {DragAndDropModule} from 'angular-draggable-droppable';
+import { ParamComponent } from './_components/desc/service-desc/param/param.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DescComponent,
     ServiceDescComponent,
-    WidgetDescComponent,
     LoginComponent,
     RegisterComponent,
     LoginComponent,
     AlertsComponent,
     HomeComponent,
-    GridComponent
+    GridComponent,
+    ParamComponent
   ],
 
   imports: [
