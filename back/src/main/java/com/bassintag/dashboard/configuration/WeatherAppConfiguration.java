@@ -22,4 +22,7 @@ public class WeatherAppConfiguration {
 
     @Value("${app.weather.weather-url}")
     private String weatherUrl;
+
+    @Value("${app.weather.icon-url}")
+    private String iconUrl;
 }

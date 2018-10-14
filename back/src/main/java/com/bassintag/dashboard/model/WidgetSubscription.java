@@ -27,7 +27,7 @@ public class WidgetSubscription {
     @ManyToOne
     private User user;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true, mappedBy = "widget")
     private List<WidgetParam> params;
 
 }

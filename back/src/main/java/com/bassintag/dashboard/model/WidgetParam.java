@@ -22,7 +22,7 @@ public class WidgetParam {
     @ManyToOne
     private WidgetSubscription widget;
 
-    private String key;
+    private String name;
 
     private String value;
 }

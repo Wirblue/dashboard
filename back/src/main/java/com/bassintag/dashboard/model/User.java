@@ -18,8 +18,7 @@ public class User {
 
     private String password;
 
-    @Lazy
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     List<WidgetSubscription> widgets;
 
 }

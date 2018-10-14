@@ -1,16 +1,16 @@
 package com.bassintag.dashboard.controller;
 
 import com.bassintag.dashboard.dto.UserCreationDto;
+import com.bassintag.dashboard.dto.UserDto;
 import com.bassintag.dashboard.dto.UserRegistrationDto;
 import com.bassintag.dashboard.exception.BadRequestException;
+import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/users")
@@ -33,4 +33,11 @@ public class UserController {
         }
         return userService.createUser(userRegistrationDto);
     }
+
+    @GetMapping("/me")
+    public UserDto me(Principal principal) {
+        User user = userService.getUserByUsername(principal.getName());
+        return new UserDto(user);
+    }
+
 }

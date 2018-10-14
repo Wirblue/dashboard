@@ -2,8 +2,10 @@ package com.bassintag.dashboard.widget;
 
 import com.bassintag.dashboard.dto.ParamDto;
 import com.bassintag.dashboard.dto.ParamValueDto;
+import com.bassintag.dashboard.dto.RenderedWidgetDto;
 import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.model.WidgetSubscription;
+import com.bassintag.dashboard.service.application.IApplicationService;
 
 /**
  * IWidgetDefinition.java created for dashboard
@@ -16,9 +18,15 @@ public interface IWidgetDefinition {
 
     String getName();
 
+    IApplicationService getService();
+
     String getDescription();
 
     ParamDto[] getParams();
 
+    boolean allowsMultiple();
+
     WidgetSubscription subscribe(User user, ParamValueDto[] params);
+
+    RenderedWidgetDto render(User user, ParamValueDto[] params);
 }
