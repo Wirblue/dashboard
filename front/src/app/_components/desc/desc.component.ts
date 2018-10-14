@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DescService} from '../../_services/desc.service';
+import {ServicesService} from '../../_services/services.service';
 import {ServiceDesc} from '../../_class/service-desc';
 
 @Component({
@@ -9,7 +9,7 @@ import {ServiceDesc} from '../../_class/service-desc';
 })
 export class DescComponent implements OnInit {
 
-  constructor(private descService: DescService) {
+  constructor(private descService: ServicesService) {
   }
 
   services: ServiceDesc[];

@@ -1,11 +1,11 @@
 export class WidgetDesc {
   name: string;
-  desc: string;
+  description: string;
   params: WidgetDestParams[];
 
-  constructor(name: string, desc: string, params: WidgetDestParams[]) {
+  constructor(name: string, description: string, params: WidgetDestParams[]) {
     this.name = name;
-    this.desc = desc;
+    this.description = description;
     this.params = params;
   }
 }

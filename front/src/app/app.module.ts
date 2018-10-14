@@ -11,12 +11,15 @@ import { WidgetDescComponent} from './_components/desc/service-desc/widget-desc/
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { RegisterComponent } from './_components/register/register.component';
 import { LoginComponent } from './_components/login/login.component';
-
 import { AuthGuard } from './_guards/auth.guard';
 import { LogGuard } from './_guards/log.guard';
 import { AlertsComponent } from './_components/alerts/alerts.component';
+import { HomeComponent } from './_components/home/home.component';
+import { GridComponent } from './_components/home/grid/grid.component';
+import {DragAndDropModule} from 'angular-draggable-droppable';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import { AlertsComponent } from './_components/alerts/alerts.component';
     LoginComponent,
     RegisterComponent,
     LoginComponent,
-    AlertsComponent
+    AlertsComponent,
+    HomeComponent,
+    GridComponent
   ],
 
   imports: [
@@ -36,7 +41,8 @@ import { AlertsComponent } from './_components/alerts/alerts.component';
     FormsModule,
     HttpModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragAndDropModule
   ],
   providers: [
     AuthGuard,
@@ -44,4 +50,5 @@ import { AlertsComponent } from './_components/alerts/alerts.component';
   ],
   bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+}
