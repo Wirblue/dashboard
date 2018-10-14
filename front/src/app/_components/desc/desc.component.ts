@@ -21,5 +21,4 @@ export class DescComponent implements OnInit {
   getServices(): void {
     this.descService.getServices().subscribe(services => this.services = services);
   }
-
 }

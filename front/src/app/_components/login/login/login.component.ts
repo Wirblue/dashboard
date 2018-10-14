@@ -3,13 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { LoginService } from '../../_services/login.service';
-import { LoginLogin } from '../../_class/login-login';
+import { LoginService } from '../../../_services/login.service';
+import { LoginLogin } from '../../../_class/login-login';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['../login.component.css']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;

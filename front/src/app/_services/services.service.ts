@@ -14,7 +14,7 @@ export class ServicesService {
 
   constructor(private http: HttpClient, private loginService: LoginService) {}
 
-  initHeader(): HttpHeaders {
+  private initHeader(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'observe': 'response',

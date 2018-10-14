@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SubscriptionsService} from '../../_services/subscriptions.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private subscriptionsService: SubscriptionsService) { }
 
   ngOnInit() {
   }
 
+  testSubscriptions() {
+    this.subscriptionsService.getSubscription().subscribe();
+  }
+
+  testWidgets() {
+    this.subscriptionsService.getWidgets().subscribe();
+  }
 }

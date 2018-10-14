@@ -10,7 +10,6 @@ export class WidgetDesc {
   }
 }
 
-
 export class WidgetDestParams {
   name: string;
   value: string;

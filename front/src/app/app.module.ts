@@ -11,15 +11,18 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { RegisterComponent } from './_components/register/register.component';
-import { LoginComponent } from './_components/login/login.component';
+import { RegisterComponent } from './_components/login/register/register.component';
+import { LoginComponent } from './_components/login/login/login.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { LogGuard } from './_guards/log.guard';
 import { AlertsComponent } from './_components/alerts/alerts.component';
 import { HomeComponent } from './_components/home/home.component';
-import { GridComponent } from './_components/home/grid/grid.component';
-import {DragAndDropModule} from 'angular-draggable-droppable';
+import { DragAndDropModule } from 'angular-draggable-droppable';
 import { ParamComponent } from './_components/desc/service-desc/param/param.component';
+import { WidgetComponent } from './_components/list/widget-list/widget/widget.component';
+import { WidgetListComponent } from './_components/list/widget-list/widget-list.component';
+import { ListComponent } from './_components/list/list.component';
+import { MeComponent } from './_components/me/me.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +34,11 @@ import { ParamComponent } from './_components/desc/service-desc/param/param.comp
     LoginComponent,
     AlertsComponent,
     HomeComponent,
-    GridComponent,
-    ParamComponent
+    ParamComponent,
+    WidgetComponent,
+    WidgetListComponent,
+    ListComponent,
+    MeComponent
   ],
 
   imports: [

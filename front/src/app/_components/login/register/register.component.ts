@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../_services/login.service';
+import { LoginService } from '../../../_services/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginLogin } from '../../_class/login-login';
+import { LoginLogin } from '../../../_class/login-login';
 import {catchError, first} from 'rxjs/operators';
-import {LoginRegister} from '../../_class/login-register';
+import {LoginRegister} from '../../../_class/login-register';
 import {Observable, of} from 'rxjs';
 import index from '@angular/cli/lib/cli';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css', '../login/login.component.css']
+  styleUrls: ['../login.component.css']
 })
 export class RegisterComponent implements OnInit {
 

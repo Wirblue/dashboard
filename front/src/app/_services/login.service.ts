@@ -27,6 +27,18 @@ export class LoginService {
     return this.http.post<any>(GlobalVariable.BASE_API_URL + '/login', loginLogin, { observe: 'response' });
   }
 
+  private initHeader(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'observe': 'response',
+      'authorization': this.getToken()
+    });
+  }
+
+  me() {
+    return this.http.get(GlobalVariable.BASE_API_URL + '/users/me', { headers: this.initHeader() });
+  }
+
   logout(): void {
     this.log = false;
     this.token = null;
