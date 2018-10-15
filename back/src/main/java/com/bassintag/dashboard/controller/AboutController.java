@@ -5,14 +5,12 @@ import com.bassintag.dashboard.dto.ClientDto;
 import com.bassintag.dashboard.dto.ServerDto;
 import com.bassintag.dashboard.dto.ServiceDto;
 import com.bassintag.dashboard.service.ApplicationServiceService;
-import com.bassintag.dashboard.service.application.IApplicationService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * AboutEndpoint.java created for dashboard

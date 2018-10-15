@@ -1,10 +1,11 @@
-package com.bassintag.dashboard.widget;
+package com.bassintag.dashboard.widget.weather;
 
-import com.bassintag.dashboard.dto.ParamListDto;
+import com.bassintag.dashboard.dto.WidgetSubscriptionParamsDto;
 import com.bassintag.dashboard.dto.weather.WeatherConditionsDto;
 import com.bassintag.dashboard.dto.WidgetDataDto;
 import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.service.application.WeatherApplicationService;
+import com.bassintag.dashboard.widget.WeatherWidget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class WeatherConditionsWidget extends WeatherWidget {
     }
 
     @Override
-    protected WidgetDataDto renderData(User user, ParamListDto params) {
+    protected WidgetDataDto renderData(User user, WidgetSubscriptionParamsDto params) {
         WidgetDataDto widgetDataDto = new WidgetDataDto();
         String city = params.getString("city");
         WeatherConditionsDto weather = getService().getWeatherConditions(city);

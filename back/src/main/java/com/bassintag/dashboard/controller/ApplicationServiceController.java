@@ -1,6 +1,6 @@
 package com.bassintag.dashboard.controller;
 
-import com.bassintag.dashboard.dto.ParamListDto;
+import com.bassintag.dashboard.dto.WidgetSubscriptionParamsDto;
 import com.bassintag.dashboard.dto.ServiceDto;
 import com.bassintag.dashboard.dto.WidgetDto;
 import com.bassintag.dashboard.dto.WidgetSubscriptionDto;
@@ -60,7 +60,7 @@ public class ApplicationServiceController {
 
     @PostMapping("/{serviceName}/widgets/{widgetName}/subscribe")
     public WidgetSubscriptionDto subscribe(@PathVariable String serviceName, @PathVariable String widgetName,
-                                           @RequestBody @Valid ParamListDto paramList, Principal principal) {
+                                           @RequestBody @Valid WidgetSubscriptionParamsDto paramList, Principal principal) {
         IWidgetDefinition widget = applicationServiceService.getWidgetByServiceNameAndWidgetName(serviceName, widgetName);
         User user = userService.getUserByUsername(principal.getName());
         if (!widget.allowsMultiple() && user.getWidgets().stream().anyMatch(w -> w.getServiceName().equals(serviceName) && w.getWidgetName().equals(widgetName))) {

@@ -1,7 +1,7 @@
 package com.bassintag.dashboard.widget.riotgames;
 
 import com.bassintag.dashboard.dto.ParamDto;
-import com.bassintag.dashboard.dto.ParamListDto;
+import com.bassintag.dashboard.dto.WidgetSubscriptionParamsDto;
 import com.bassintag.dashboard.dto.WidgetDataDto;
 import com.bassintag.dashboard.dto.riotgames.*;
 import com.bassintag.dashboard.model.User;
@@ -33,7 +33,7 @@ public class MostPlayedChampionWidget extends WidgetDefinition<RiotGamesApplicat
     }
 
     @Override
-    protected WidgetDataDto renderData(User user, ParamListDto params) {
+    protected WidgetDataDto renderData(User user, WidgetSubscriptionParamsDto params) {
         SummonerDto player = getService().summonerByName(params.getString("summonerName"));
         MatchListDto matchListDto = getService().matchListByAccount(player.getAccountId(), 20);
         WidgetDataDto widgetDataDto = new WidgetDataDto();
