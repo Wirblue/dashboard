@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-md-3">
+    {{param.name}}
+  </div>
+  <div class="col-md-3">
+    {{param.type}}
+  </div>
+  <div class="col-md-6">
+    <input type="{{getParamType(param.type)}}" class="form-control" required [(ngModel)]="param.value" name="name">
+  </div>
+</div>

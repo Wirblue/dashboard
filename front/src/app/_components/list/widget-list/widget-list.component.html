@@ -1,0 +1,7 @@
+<div class="container-fluid">
+  <div class="row">
+    <div *ngFor="let widget of widgets" class="col-md-3 container-fluid" style="padding: 1rem">
+      <app-widget [widget]="widget"></app-widget>
+    </div>
+  </div>
+</div>

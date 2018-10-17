@@ -10,10 +10,10 @@ export class AlertService {
     this._alerts = [];
   }
 
-  private _alerts: Alert[];
+  private readonly _alerts: Alert[];
 
-  addAlert(err: Alert): void {
-    this._alerts.push(err);
+  addAlert(context: string, message: string): void {
+    this._alerts.push(new Alert(context, message, 'alert-danger'));
   }
 
   get alerts(): Alert[] {

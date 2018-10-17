@@ -1,14 +1,14 @@
-import { WidgetDesc } from './widget-desc';
+import { WidgetDesc } from './widget/widget-desc';
 
 export class ServiceDesc {
   name: string;
-  desc: string;
+  description: string;
   widgets: WidgetDesc[];
 
 
-  constructor(name: string, desc: string, widgets: WidgetDesc[]) {
+  constructor(name: string, description: string, widgets: WidgetDesc[]) {
     this.name = name;
-    this.desc = desc;
+    this.description = description;
     this.widgets = widgets;
   }
 }
