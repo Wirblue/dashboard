@@ -13,6 +13,8 @@ import lombok.Data;
 @Data
 public class WidgetSubscriptionDto {
 
+    private long id;
+
     private String widgetName;
 
     private String serviceName;
@@ -20,6 +22,7 @@ public class WidgetSubscriptionDto {
     private ParamValueDto[] params;
 
     public WidgetSubscriptionDto(WidgetSubscription widgetSubscription) {
+        id = widgetSubscription.getId();
         widgetName = widgetSubscription.getWidgetName();
         serviceName = widgetSubscription.getServiceName();
         params = widgetSubscription.getParams().stream().map(ParamValueDto::new).toArray(ParamValueDto[]::new);

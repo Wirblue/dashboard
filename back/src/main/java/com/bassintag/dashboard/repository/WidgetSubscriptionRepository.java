@@ -5,6 +5,7 @@ import com.bassintag.dashboard.model.WidgetSubscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * WidgetSubscriptionRepository.java created for dashboard
@@ -18,4 +19,6 @@ public interface WidgetSubscriptionRepository extends JpaRepository<WidgetSubscr
     List<WidgetSubscription> getAllByUserAndServiceName(User user, String serviceName);
 
     WidgetSubscription getByUserAndServiceNameAndWidgetName(User user, String serviceName, String widgetName);
+
+    Optional<WidgetSubscription> getByUserAndId(User user, long id);
 }

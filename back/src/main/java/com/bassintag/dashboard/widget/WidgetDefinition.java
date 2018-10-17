@@ -5,6 +5,7 @@ import com.bassintag.dashboard.exception.BadRequestException;
 import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.model.WidgetSubscription;
 import com.bassintag.dashboard.service.application.IApplicationService;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -21,16 +22,25 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
 
     private final T service;
 
+    @Getter
     private final String name;
+    @Getter
     private final String description;
+    @Getter
+    private final long   defaultRefreshTime;
 
     private final ParamDto[] params;
 
     public WidgetDefinition(T service, String name, String description) {
+        this(service, name, description, 10000);
+    }
+
+    public WidgetDefinition(T service, String name, String description, long defaultRefreshTime) {
         this.service = service;
         params = setupParams();
         this.name = name;
         this.description = description;
+        this.defaultRefreshTime = defaultRefreshTime;
         service.registerWidget(this);
     }
 
@@ -69,16 +79,17 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
                 .peek(p -> p.setWidget(widgetSubscription)).collect(Collectors.toList()));
         widgetSubscription.setWidgetName(getName());
         widgetSubscription.setServiceName(getService().getName());
+        widgetSubscription.setRefreshTime(getDefaultRefreshTime());
         return widgetSubscription;
     }
 
-    protected abstract WidgetDataDto renderData(User user, ParamListDto params);
+    protected abstract WidgetDataDto renderData(User user, WidgetSubscriptionParamsDto params);
 
     @Override
     public RenderedWidgetDto render(User user, ParamValueDto[] params) {
         RenderedWidgetDto renderedWidgetDto = new RenderedWidgetDto();
         renderedWidgetDto.setWidget(new WidgetDto(this));
-        ParamListDto paramList = new ParamListDto();
+        WidgetSubscriptionParamsDto paramList = new WidgetSubscriptionParamsDto();
         paramList.setParams(params);
         renderedWidgetDto.setData(renderData(user, paramList));
         return renderedWidgetDto;
@@ -103,5 +114,8 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
         return description;
     }
 
-
+    @Override
+    public boolean allowsMultiple() {
+        return true;
+    }
 }

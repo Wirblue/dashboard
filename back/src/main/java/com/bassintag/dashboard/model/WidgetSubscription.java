@@ -24,6 +24,8 @@ public class WidgetSubscription {
 
     private String widgetName;
 
+    private long refreshTime = 10000;
+
     @ManyToOne
     private User user;
 

@@ -51,6 +51,23 @@ public class WidgetSubscriptionService {
         return user.getWidgets().stream().map(WidgetSubscriptionDto::new).toArray(WidgetSubscriptionDto[]::new);
     }
 
+    public WidgetSubscription getByUserAndId(User user, long id) {
+        return widgetSubscriptionRepository.getByUserAndId(user, id)
+                .orElseThrow(() -> new NotFoundException("Could not find subscription with id: " + id));
+    }
+
+    public WidgetSubscriptionDto deleteByUserAndId(User user, long id) {
+        WidgetSubscriptionDto ret = new WidgetSubscriptionDto(getByUserAndId(user, id));
+        widgetSubscriptionRepository.deleteById(ret.getId());
+        return ret;
+    }
+
+    public WidgetSubscriptionDto updateRefreshTimeByUserAndId(User user, long id, long refreshTime) {
+        WidgetSubscription subscription = getByUserAndId(user, id);
+        subscription.setRefreshTime(refreshTime);
+        return new WidgetSubscriptionDto(subscription);
+    }
+
     public WidgetSubscription[] getUserSubscriptions(User user, String service) {
         List<WidgetSubscription> subscriptions = widgetSubscriptionRepository.getAllByUserAndServiceName(user, service);
         return subscriptions.toArray(new WidgetSubscription[0]);

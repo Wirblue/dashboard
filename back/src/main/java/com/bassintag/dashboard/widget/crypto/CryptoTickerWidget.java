@@ -1,11 +1,12 @@
-package com.bassintag.dashboard.widget;
+package com.bassintag.dashboard.widget.crypto;
 
-import com.bassintag.dashboard.dto.CryptoTickerDto;
+import com.bassintag.dashboard.dto.WidgetSubscriptionParamsDto;
+import com.bassintag.dashboard.dto.crypto.CryptoTickerDto;
 import com.bassintag.dashboard.dto.ParamDto;
-import com.bassintag.dashboard.dto.ParamListDto;
 import com.bassintag.dashboard.dto.WidgetDataDto;
 import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.service.application.CryptoApplicationService;
+import com.bassintag.dashboard.widget.WidgetDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +33,11 @@ public class CryptoTickerWidget extends WidgetDefinition<CryptoApplicationServic
     }
 
     @Override
-    protected WidgetDataDto renderData(User user, ParamListDto params) {
+    protected WidgetDataDto renderData(User user, WidgetSubscriptionParamsDto params) {
         WidgetDataDto widgetDataDto = new WidgetDataDto();
         CryptoTickerDto ticker = getService().getPairPrice(params.getString("pair"));
-        widgetDataDto.setTitle(ticker.getSymbol() + ": " + ticker.getPrice());
+        widgetDataDto.setTitle(ticker.getSymbol());
+        widgetDataDto.setSubtitle("Exchange rate: " + ticker.getPrice().replaceAll("0+$", ""));
         return widgetDataDto;
     }
 

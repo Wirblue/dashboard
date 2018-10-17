@@ -6,18 +6,19 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * ParamListDto.java created for dashboard
+ * WidgetSubscriptionParamsDto.java created for dashboard
  *
  * @author Antoine
  * @version 1.0
  * @since 02/10/2018
  */
 @Data
-public class ParamListDto {
+public class WidgetSubscriptionParamsDto {
 
     @Valid
-    @NotNull
     private ParamValueDto[] params;
+
+    private long refreshTime = 0;
 
     public String getString(String name) {
         for (ParamValueDto param : params) {
