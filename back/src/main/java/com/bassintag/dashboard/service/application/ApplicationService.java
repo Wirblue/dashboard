@@ -1,5 +1,6 @@
 package com.bassintag.dashboard.service.application;
 
+import com.bassintag.dashboard.service.auth.IOAuthService;
 import com.bassintag.dashboard.widget.IWidgetDefinition;
 
 import java.util.ArrayList;
@@ -18,9 +19,16 @@ public abstract class ApplicationService implements IApplicationService {
 
     private List<IWidgetDefinition> widgets;
 
-    protected ApplicationService(String name) {
+    private IOAuthService authService;
+
+    protected ApplicationService(String name, IOAuthService authService) {
         this.name = name;
+        this.authService = authService;
         widgets = new ArrayList<>();
+    }
+
+    protected ApplicationService(String name) {
+        this(name, null);
     }
 
     @Override
@@ -36,5 +44,10 @@ public abstract class ApplicationService implements IApplicationService {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public IOAuthService getAuthService() {
+        return authService;
     }
 }

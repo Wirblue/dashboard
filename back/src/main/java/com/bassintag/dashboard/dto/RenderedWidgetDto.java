@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class RenderedWidgetDto {
 
-    private WidgetDto widget;
+    private WidgetSubscriptionDto widget;
 
     private WidgetDataDto data;
 }

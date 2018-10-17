@@ -1,5 +1,6 @@
 package com.bassintag.dashboard.service.application;
 
+import com.bassintag.dashboard.service.auth.IOAuthService;
 import com.bassintag.dashboard.widget.IWidgetDefinition;
 
 /**
@@ -16,4 +17,6 @@ public interface IApplicationService {
     void registerWidget(IWidgetDefinition widget);
 
     IWidgetDefinition[] getWidgets();
+
+    IOAuthService getAuthService();
 }

@@ -26,7 +26,7 @@ public class WeatherSunInfoWidget extends WeatherWidget {
 
     @Autowired
     public WeatherSunInfoWidget(WeatherApplicationService service) {
-        super(service, "sun_info", "Displays sunrise and sunset for a city");
+        super(service, "sun-info", "Displays sunrise and sunset for a city");
         dateFormat = new SimpleDateFormat("HH:mm");
     }
 

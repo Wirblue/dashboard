@@ -18,7 +18,13 @@ public class User {
 
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     List<WidgetSubscription> widgets;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    List<AccessToken> tokens;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    List<OAuthRequest> oAuthRequests;
 
 }

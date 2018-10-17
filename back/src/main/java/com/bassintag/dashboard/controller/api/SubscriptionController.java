@@ -1,10 +1,8 @@
-package com.bassintag.dashboard.controller;
+package com.bassintag.dashboard.controller.api;
 
-import com.bassintag.dashboard.dto.RefreshTimeDto;
 import com.bassintag.dashboard.dto.RenderedWidgetDto;
 import com.bassintag.dashboard.dto.WidgetSubscriptionDto;
 import com.bassintag.dashboard.model.User;
-import com.bassintag.dashboard.model.WidgetSubscription;
 import com.bassintag.dashboard.service.UserService;
 import com.bassintag.dashboard.service.WidgetSubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,7 @@ import java.security.Principal;
  * @since 05/10/2018
  */
 @RestController
-@RequestMapping("/subscriptions")
+@RequestMapping("/api/subscriptions")
 public class SubscriptionController {
 
     private final UserService userService;
@@ -47,9 +45,11 @@ public class SubscriptionController {
     }
 
     @PutMapping("/{id}")
-    public WidgetSubscriptionDto updateSubscription(@PathVariable long id, @Valid RefreshTimeDto data, Principal principal) {
+    public WidgetSubscriptionDto updateSubscription(@PathVariable long id,
+                                                    @RequestBody @Valid WidgetSubscriptionDto data,
+                                                    Principal principal) {
         User user = userService.getUserByUsername(principal.getName());
-        return widgetSubscriptionService.updateRefreshTimeByUserAndId(user, id, data.getRefreshTime());
+        return widgetSubscriptionService.updateByUserAndId(user, id, data);
     }
 
     @DeleteMapping("/{id}")

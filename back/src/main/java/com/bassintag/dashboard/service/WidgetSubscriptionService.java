@@ -6,6 +6,7 @@ import com.bassintag.dashboard.dto.WidgetSubscriptionDto;
 import com.bassintag.dashboard.exception.BadRequestException;
 import com.bassintag.dashboard.exception.NotFoundException;
 import com.bassintag.dashboard.model.User;
+import com.bassintag.dashboard.model.WidgetParam;
 import com.bassintag.dashboard.model.WidgetSubscription;
 import com.bassintag.dashboard.repository.WidgetSubscriptionRepository;
 import com.bassintag.dashboard.widget.IWidgetDefinition;
@@ -81,15 +82,35 @@ public class WidgetSubscriptionService {
         return subscription;
     }
 
+    public WidgetSubscriptionDto updateByUserAndId(User user, long id, WidgetSubscriptionDto data) {
+        Optional<WidgetSubscription> optSubscription = widgetSubscriptionRepository.getByUserAndId(user, id);
+        WidgetSubscription subscription = optSubscription.orElseThrow(() -> new NotFoundException("Cannot find this widget"));
+        if (data.getRefreshTime() > 0)
+            subscription.setRefreshTime(data.getRefreshTime());
+        if (data.getParams() != null) {
+            IWidgetDefinition definition = applicationServiceService.getWidgetByServiceNameAndWidgetName(
+                    subscription.getServiceName(), subscription.getWidgetName());
+            for (ParamValueDto param : data.getParams()) {
+                definition.validateParam(param);
+                for (WidgetParam wParam : subscription.getParams()) {
+                    if (wParam.getName().equals(param.getName())) {
+                        wParam.setValue(param.getValue());
+                    }
+                }
+            }
+        }
+        widgetSubscriptionRepository.save(subscription);
+        return new WidgetSubscriptionDto(subscription);
+    }
+
     public RenderedWidgetDto render(WidgetSubscription widgetSubscription) {
-        ParamValueDto[] params = widgetSubscription.getParams().stream().map(ParamValueDto::new).toArray(ParamValueDto[]::new);
         Optional<IWidgetDefinition> widget = Arrays.stream(widgets)
                 .filter(w -> w.getService().getName().equals(widgetSubscription.getServiceName()) && w.getName().equals(widgetSubscription.getWidgetName()))
                 .findFirst();
         if (!widget.isPresent()) {
             throw new BadRequestException("Invalid widget with service: " + widgetSubscription.getServiceName() + " and name: " + widgetSubscription.getWidgetName());
         }
-        return widget.get().render(widgetSubscription.getUser(), params);
+        return widget.get().render(widgetSubscription.getUser(), widgetSubscription);
     }
 
     public RenderedWidgetDto[] render(WidgetSubscription[] widgetSubscriptions) {

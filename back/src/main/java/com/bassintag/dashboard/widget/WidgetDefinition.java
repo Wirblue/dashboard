@@ -6,6 +6,7 @@ import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.model.WidgetSubscription;
 import com.bassintag.dashboard.service.application.IApplicationService;
 import lombok.Getter;
+import org.hibernate.annotations.ParamDef;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -46,7 +47,7 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
 
     protected abstract ParamDto[] setupParams();
 
-    private void validateParam(ParamValueDto value, String type) {
+    private void validateParamType(ParamValueDto value, String type) {
         try {
             switch (type) {
                 case "integer":
@@ -64,14 +65,21 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
     }
 
     @Override
+    public void validateParam(ParamValueDto param) {
+        Optional<ParamDto> def = Arrays.stream(this.params).filter(p -> p.getName().equals(param.getName())).findFirst();
+        validateParamType(param, def.orElseThrow(() -> new BadRequestException("Invalid Parameter: " + param.getName())).getType());
+    }
+
+    @Override
     public WidgetSubscription subscribe(User user, ParamValueDto[] params) {
         for (ParamDto paramDef : this.params) {
             Optional<ParamValueDto> opt = Arrays.stream(params).filter(p -> p.getName().equals(paramDef.getName())).findFirst();
             if (!opt.isPresent()) {
                 throw new BadRequestException("Missing parameter: " + paramDef.getName());
             }
-            ParamValueDto value = opt.get();
-            validateParam(value, paramDef.getType());
+        }
+        for (ParamValueDto param : params) {
+            validateParam(param);
         }
         WidgetSubscription widgetSubscription = new WidgetSubscription();
         widgetSubscription.setUser(user);
@@ -86,11 +94,11 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
     protected abstract WidgetDataDto renderData(User user, WidgetSubscriptionParamsDto params);
 
     @Override
-    public RenderedWidgetDto render(User user, ParamValueDto[] params) {
+    public RenderedWidgetDto render(User user, WidgetSubscription subscription) {
         RenderedWidgetDto renderedWidgetDto = new RenderedWidgetDto();
-        renderedWidgetDto.setWidget(new WidgetDto(this));
+        renderedWidgetDto.setWidget(new WidgetSubscriptionDto(subscription));
         WidgetSubscriptionParamsDto paramList = new WidgetSubscriptionParamsDto();
-        paramList.setParams(params);
+        paramList.setParams(subscription.getParams().stream().map(ParamValueDto::new).toArray(ParamValueDto[]::new));
         renderedWidgetDto.setData(renderData(user, paramList));
         return renderedWidgetDto;
     }

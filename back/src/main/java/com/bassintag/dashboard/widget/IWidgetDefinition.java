@@ -26,7 +26,9 @@ public interface IWidgetDefinition {
 
     boolean allowsMultiple();
 
+    void validateParam(ParamValueDto param);
+
     WidgetSubscription subscribe(User user, ParamValueDto[] params);
 
-    RenderedWidgetDto render(User user, ParamValueDto[] params);
+    RenderedWidgetDto render(User user, WidgetSubscription subscription);
 }

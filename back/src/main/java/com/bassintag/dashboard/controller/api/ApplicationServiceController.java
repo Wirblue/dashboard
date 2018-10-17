@@ -1,4 +1,4 @@
-package com.bassintag.dashboard.controller;
+package com.bassintag.dashboard.controller.api;
 
 import com.bassintag.dashboard.dto.WidgetSubscriptionParamsDto;
 import com.bassintag.dashboard.dto.ServiceDto;
@@ -18,7 +18,7 @@ import java.security.Principal;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping("/services")
+@RequestMapping("/api/services")
 public class ApplicationServiceController {
 
     private final WidgetSubscriptionService widgetSubscriptionService;

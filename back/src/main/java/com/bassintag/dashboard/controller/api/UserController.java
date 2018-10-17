@@ -1,4 +1,4 @@
-package com.bassintag.dashboard.controller;
+package com.bassintag.dashboard.controller.api;
 
 import com.bassintag.dashboard.dto.UserCreationDto;
 import com.bassintag.dashboard.dto.UserDto;
@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;

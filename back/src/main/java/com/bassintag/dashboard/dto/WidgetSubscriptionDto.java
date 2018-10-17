@@ -15,14 +15,20 @@ public class WidgetSubscriptionDto {
 
     private long id;
 
+    private long refreshTime;
+
     private String widgetName;
 
     private String serviceName;
 
     private ParamValueDto[] params;
 
+    public WidgetSubscriptionDto() {
+    }
+
     public WidgetSubscriptionDto(WidgetSubscription widgetSubscription) {
         id = widgetSubscription.getId();
+        refreshTime = widgetSubscription.getRefreshTime();
         widgetName = widgetSubscription.getWidgetName();
         serviceName = widgetSubscription.getServiceName();
         params = widgetSubscription.getParams().stream().map(ParamValueDto::new).toArray(ParamValueDto[]::new);

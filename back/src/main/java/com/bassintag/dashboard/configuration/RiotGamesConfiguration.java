@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Data
 @Configuration
-public class    RiotGamesConfiguration {
+public class RiotGamesConfiguration {
 
     @Value("${app.riot-games.key}")
     private String key;

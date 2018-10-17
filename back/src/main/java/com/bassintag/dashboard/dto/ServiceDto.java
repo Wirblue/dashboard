@@ -20,9 +20,13 @@ public class ServiceDto {
         widgets = Arrays.stream(service.getWidgets())
                 .map(WidgetDto::new)
                 .toArray(WidgetDto[]::new);
+        if (service.getAuthService() != null)
+            authService = service.getAuthService().getName();
     }
 
     private String name;
+
+    private String authService;
 
     private WidgetDto[] widgets;
 }
