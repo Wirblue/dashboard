@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {WidgetDestParams} from '../../../../_class/widget-desc';
+import { WidgetParam } from '../../../../_class/widget/widget-param';
 
 @Component({
   selector: 'app-param',
@@ -8,11 +8,27 @@ import {WidgetDestParams} from '../../../../_class/widget-desc';
 })
 export class ParamComponent implements OnInit {
 
-  @Input('param') param: WidgetDestParams;
+  constructor() {
+}
 
-  constructor() { }
+  @Input('param') param: WidgetParam;
+
+  a = {
+    'int': 'number',
+    'password': 'password',
+    'boolean': 'checkbox',
+    'string': 'text',
+    'date': 'date'
+  };
 
   ngOnInit() {
+  }
+
+  getParamType(type: string): string {
+    if (this.a) {
+      return this.a[type];
+    }
+    return 'text';
   }
 
 }

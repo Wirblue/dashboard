@@ -8,16 +8,12 @@ import {SubscriptionsService} from '../../_services/subscriptions.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private subscriptionsService: SubscriptionsService) { }
+  constructor(private subscriptionsService: SubscriptionsService) {}
 
   ngOnInit() {
   }
 
   testSubscriptions() {
-    this.subscriptionsService.getSubscription().subscribe();
-  }
-
-  testWidgets() {
-    this.subscriptionsService.getWidgets().subscribe();
+    this.subscriptionsService.getSubscriptions().subscribe();
   }
 }

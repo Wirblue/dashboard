@@ -8,6 +8,7 @@ import { LoginLogin } from '../_class/login-login';
 import { Router } from '@angular/router';
 import {AlertService} from './alert.service';
 import {Alert} from '../_class/alert';
+import {User} from '../_class/user';
 
 @Injectable({
   providedIn: 'root'
@@ -20,23 +21,22 @@ export class LoginService {
   token: string;
 
   register(loginRegister: LoginRegister): Observable<HttpResponse<Object>> {
-    return this.http.post<any>(GlobalVariable.BASE_API_URL + '/users/register', loginRegister, { observe: 'response' });
+    return this.http.post<any>(GlobalVariable.API_URL + '/users/register', loginRegister, { observe: 'response' });
   }
 
   login(loginLogin: LoginLogin): Observable<any | HttpResponse<Object>> {
-    return this.http.post<any>(GlobalVariable.BASE_API_URL + '/login', loginLogin, { observe: 'response' });
+    return this.http.post<any>(GlobalVariable.API_URL + '/users/login', loginLogin, { observe: 'response' });
   }
 
   private initHeader(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'observe': 'response',
       'authorization': this.getToken()
     });
   }
 
   me() {
-    return this.http.get(GlobalVariable.BASE_API_URL + '/users/me', { headers: this.initHeader() });
+    return this.http.get<User>(GlobalVariable.API_URL + '/users/me', { headers: this.initHeader() });
   }
 
   logout(): void {
@@ -58,6 +58,6 @@ export class LoginService {
   }
 
   handleError(error): void {
-    this.alertService.addAlert(new Alert(error.error.error, error.error.message, 'alert-danger'));
+    this.alertService.addAlert(error.error.error, error.error.message);
   }
 }

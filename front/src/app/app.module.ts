@@ -10,6 +10,10 @@ import { ServiceDescComponent } from './_components/desc/service-desc/service-de
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GridsterModule } from 'angular-gridster2';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatRippleModule } from '@angular/material';
 
 import { RegisterComponent } from './_components/login/register/register.component';
 import { LoginComponent } from './_components/login/login/login.component';
@@ -25,6 +29,23 @@ import { ListComponent } from './_components/list/list.component';
 import { MeComponent } from './_components/me/me.component';
 
 @NgModule({
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    DragAndDropModule,
+    GridsterModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatRippleModule
+  ],
+
   declarations: [
     AppComponent,
     DescComponent,
@@ -38,18 +59,9 @@ import { MeComponent } from './_components/me/me.component';
     WidgetComponent,
     WidgetListComponent,
     ListComponent,
-    MeComponent
+    MeComponent,
   ],
 
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    DragAndDropModule
-  ],
   providers: [
     AuthGuard,
     LogGuard

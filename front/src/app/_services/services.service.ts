@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ServiceDesc } from '../_class/service-desc';
-import { Observable, of} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalVariable } from '../globals';
-import { catchError} from 'rxjs/operators';
-import {LoginService} from './login.service';
-import {WidgetDesc} from '../_class/widget-desc';
+import { LoginService } from './login.service';
+import { WidgetDesc } from '../_class/widget/widget-desc';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +16,17 @@ export class ServicesService {
   private initHeader(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'observe': 'response',
       'authorization': this.loginService.getToken()
     });
   }
 
   getServices(): Observable<ServiceDesc[]> {
-    return this.http.get<ServiceDesc[]>(GlobalVariable.BASE_API_URL + '/services', { headers: this.initHeader() });
+    return this.http.get<ServiceDesc[]>(GlobalVariable.API_URL + '/services', { headers: this.initHeader() });
   }
 
-  subscribe(service: ServiceDesc, widget: WidgetDesc): Observable<Object> {
-    const route = GlobalVariable.BASE_API_URL + '/services/' + service.name + '/widgets/' + widget.name + '/subscribe';
-    return this.http.post(route, { params: widget.params }, { headers: this.initHeader() });
+  subscribe(service: ServiceDesc, widget: WidgetDesc): Observable<WidgetDesc> {
+    const route = GlobalVariable.API_URL + '/services/' + service.name + '/widgets/' + widget.name + '/subscribe';
+    return this.http.post<WidgetDesc>(route, { params: widget.params }, { headers: this.initHeader() });
   }
 
   /**

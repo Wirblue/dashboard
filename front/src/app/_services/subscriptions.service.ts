@@ -2,42 +2,57 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginService } from './login.service';
-import {GlobalVariable} from '../globals';
-import {Widget} from '../_class/widget';
+import { GlobalVariable } from '../globals';
+import { Widget } from '../_class/widget/widget';
+import { WidgetDesc } from '../_class/widget/widget-desc';
+import {IntervalService} from './interval.service';
+import {AlertService} from './alert.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscriptionsService {
 
-  constructor(private http: HttpClient, private loginService: LoginService) {}
+  constructor(private http: HttpClient,
+              private loginService: LoginService,
+              private intervaleService: IntervalService,
+              private alertService: AlertService) {}
+
+  private _widgets: WidgetDesc[] = [];
 
   private initHeader(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'observe': 'response',
       'authorization': this.loginService.getToken()
     });
   }
 
-  getSubscription() {
-    return this.http.get(GlobalVariable.BASE_API_URL + '/subscriptions', { headers: this.initHeader()});
+
+  get widgets(): WidgetDesc[] {
+    return this._widgets;
   }
 
-  getWidgets(): Observable<Widget[]> {
-    return this.http.get<Widget[]>(GlobalVariable.BASE_API_URL + '/subscriptions/widgets', { headers: this.initHeader()});
+  remove(id: number): void {
+    const pos = this._widgets.map(x => {
+      return x.id;
+    }).indexOf(id);
+
+    this._widgets.splice(pos, 1);
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
+  add(widget: WidgetDesc) {
+    this._widgets.push(widget);
+  }
+
+  refreshWidgets() {
+    this.intervaleService.stopAll();
+    this.getSubscriptions().subscribe(
+      data => this._widgets = data,
+      error => this.alertService.addAlert('refreshWidgets', error.error.message)
+    );
+  }
+
+  getSubscriptions() {
+    return this.http.get<WidgetDesc[]>(GlobalVariable.API_URL + '/subscriptions', { headers: this.initHeader()});
   }
 }

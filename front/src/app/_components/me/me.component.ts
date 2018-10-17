@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from '../../_services/login.service';
-import {Router} from '@angular/router';
+import {LoginService } from '../../_services/login.service';
+import { Router } from '@angular/router';
+import { User } from '../../_class/user';
+import {AlertService} from '../../_services/alert.service';
 
 @Component({
   selector: 'app-me',
@@ -9,9 +11,12 @@ import {Router} from '@angular/router';
 })
 export class MeComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService,
+              private router: Router,
+              private alertService: AlertService) {
+  }
 
-  me: string;
+  me: User;
 
   ngOnInit() {
     this.getMe();
@@ -23,7 +28,10 @@ export class MeComponent implements OnInit {
   }
 
   getMe() {
-    this.loginService.me().subscribe(data => this.me = data.username);
+    this.loginService.me().subscribe(
+      data => this.me = data,
+      error => this.alertService.addAlert('getMe', error.error.message
+      ));
   }
 
 }

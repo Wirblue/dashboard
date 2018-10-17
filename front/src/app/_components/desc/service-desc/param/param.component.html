@@ -5,24 +5,7 @@
   <div class="col-md-3">
     {{param.type}}
   </div>
-  <div class="col-md-6" [ngSwitch]="param.type">
-    <div *ngSwitchCase="'int'">
-      <input type="number" class="form-control" required [(ngModel)]="param.value" name="name">
-    </div>
-    <div *ngSwitchCase="'password'">
-      <input type="password" class="form-control" required [(ngModel)]="param.value" name="name">
-    </div>
-    <div *ngSwitchCase="'boolean'">
-      <input type="checkbox" class="form-control" required [(ngModel)]="param.value" name="name">
-    </div>
-    <div *ngSwitchCase="'string'">
-      <input type="text" class="form-control" required [(ngModel)]="param.value" name="name">
-    </div>
-    <div *ngSwitchCase="'date'">
-      <input type="date" class="form-control" required [(ngModel)]="param.value" name="name">
-    </div>
-    <div *ngSwitchDefault>
-      <input type="text" class="form-control" required [(ngModel)]="param.value" name="name">
-    </div>
+  <div class="col-md-6">
+    <input type="{{getParamType(param.type)}}" class="form-control" required [(ngModel)]="param.value" name="name">
   </div>
 </div>

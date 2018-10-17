@@ -1,4 +1,4 @@
-import { WidgetDesc } from './widget-desc';
+import { WidgetDesc } from './widget/widget-desc';
 
 export class ServiceDesc {
   name: string;

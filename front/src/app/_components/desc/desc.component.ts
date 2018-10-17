@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ServicesService} from '../../_services/services.service';
 import {ServiceDesc} from '../../_class/service-desc';
+import {AlertService} from '../../_services/alert.service';
 
 @Component({
   selector: 'app-desc',
@@ -9,7 +10,8 @@ import {ServiceDesc} from '../../_class/service-desc';
 })
 export class DescComponent implements OnInit {
 
-  constructor(private descService: ServicesService) {
+  constructor(private descService: ServicesService,
+              private alertService: AlertService) {
   }
 
   services: ServiceDesc[];
@@ -19,6 +21,9 @@ export class DescComponent implements OnInit {
   }
 
   getServices(): void {
-    this.descService.getServices().subscribe(services => this.services = services);
+    this.descService.getServices().subscribe(
+      services => this.services = services,
+      error => this.alertService.addAlert('getServices', error.error.message)
+    );
   }
 }

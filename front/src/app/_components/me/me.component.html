@@ -1,4 +1,4 @@
-<i>
-  Connecté en temps que {{me}}
+<i *ngIf="me">
+  Connecté en temps que {{me.username}}
+  <button class="btn-dark btn-sm" (click)="logout()">Logout</button>
 </i>
-<button class="btn-dark btn-sm" (click)="logout()">Logout</button>

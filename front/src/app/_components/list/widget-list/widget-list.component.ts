@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SubscriptionsService} from '../../../_services/subscriptions.service';
-import {Widget} from '../../../_class/widget';
+import {WidgetDesc} from '../../../_class/widget/widget-desc';
 
 @Component({
   selector: 'app-widget-list',
@@ -9,9 +8,10 @@ import {Widget} from '../../../_class/widget';
 })
 export class WidgetListComponent implements OnInit {
 
-  @Input('widgets') widgets: Widget[];
+  @Input('widgets') widgets: WidgetDesc[];
 
-  constructor() { }
+  constructor() {
+}
 
   ngOnInit() {
   }
