@@ -103,25 +103,11 @@
     "@angular-devkit/core" "0.8.3"
     rxjs "~6.2.0"
 
-"@angular/animations@^6.1.10":
-  version "6.1.10"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-6.1.10.tgz#4ab9b9a6c25e0cca781588700daa9efc33a722e4"
-  integrity sha512-dd/lq7kw3uwfHPICan8psu2nthuUpp7PvMLuNIm0XxObZ4oNs0ls6uxKEDPnEkRKoGdiJpvmsyzZZN9ACMPEAA==
-  dependencies:
-    tslib "^1.9.0"
-
 "@angular/animations@angular/animations-builds":
   version "7.0.0-rc.1"
   resolved "https://codeload.github.com/angular/animations-builds/tar.gz/2eab1ef5a677c0ef266f2dcab2ddd813f82da050"
   dependencies:
     tslib "^1.9.0"
-
-"@angular/cdk@^6.4.7":
-  version "6.4.7"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.4.7.tgz#1549b304dd412e82bd854cc55a7d5c6772ee0411"
-  integrity sha512-18x0U66fLD5kGQWZ9n3nb75xQouXlWs7kUDaTd8HTrHpT1s2QIAqlLd1KxfrYiVhsEC2jPQaoiae7VnBlcvkBg==
-  dependencies:
-    tslib "^1.7.1"
 
 "@angular/cdk@angular/cdk-builds":
   version "7.0.0-rc.2-aaac266"
@@ -197,15 +183,6 @@
   version "6.1.9"
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-6.1.9.tgz#ca82f51775bcf9ccf56421229ac9016bb63b9885"
   integrity sha512-xm3lbJYelyq02iLdS4gpymuHc8WadoPRCYMHW5Ond7kD+05JGt8smYEGOAcjSt0NJrpmkPWnTzlFlXxWYLQNdw==
-
-"@angular/material@^6.4.7":
-  version "6.4.7"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-6.4.7.tgz#3c8f2d6a6a7904d97be29e06a84ffb62a8da6c16"
-  integrity sha512-SdNx7Xovi24Kw9eU6lkLhY/7f2M7L9F+/uh6XuPr4jbGgCUVVpeeVI5ztZhsZRbj1sN+/r1p5w8u62apWWl5Ww==
-  dependencies:
-    tslib "^1.7.1"
-  optionalDependencies:
-    parse5 "^5.0.0"
 
 "@angular/material@angular/material2-builds":
   version "7.0.0-rc.2-aaac266"

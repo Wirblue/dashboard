@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: aled
+      MYSQL_DATABASE: dashboard
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev
+    restart: always
+
+  server:
+    restart: always
+    build: ./back
+    ports:
+    - "8080:8080"
+    depends_on:
+    - db
+
+  app:
+    restart: always
+    build: ./front
+    ports:
+    - "80:80"
+    depends_on:
+    - db
+    - server
