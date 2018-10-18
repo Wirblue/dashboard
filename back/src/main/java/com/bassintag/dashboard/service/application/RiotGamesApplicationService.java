@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.Resource;
+import java.awt.*;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,7 +36,7 @@ public class RiotGamesApplicationService extends ApplicationService {
 
     @Autowired
     public RiotGamesApplicationService(RiotGamesConfiguration riotGamesConfiguration) {
-        super("riot");
+        super("riot", new Color( 	255, 235, 238));
         this.riotGamesConfiguration = riotGamesConfiguration;
         this.restTemplate = new RestTemplateBuilder().build();
     }
@@ -67,11 +68,11 @@ public class RiotGamesApplicationService extends ApplicationService {
     }
 
     public String championIcon(ChampionDto champion) {
-        return riotGamesConfiguration.getStaticBaseUrl() + "/cdn/" + self.versions()[0] + "/img/champion/" + champion.getName() + ".png";
+        return riotGamesConfiguration.getStaticBaseUrl() + "/cdn/" + self.versions()[0] + "/img/champion/" + champion.getId() + ".png";
     }
 
     public String championSplash(ChampionDto champion) {
-        return riotGamesConfiguration.getStaticBaseUrl() + "/cdn/img/champion/splash/" + champion.getName() + "_0.jpg";
+        return riotGamesConfiguration.getStaticBaseUrl() + "/cdn/img/champion/splash/" + champion.getId() + "_0.jpg";
     }
 
     public String profileIcon(SummonerDto summoner) {

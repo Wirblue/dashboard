@@ -8,5 +8,5 @@ body {
   background: white;
 }
 
-html, body { height: 100%; }
+html, body, app-root { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; }

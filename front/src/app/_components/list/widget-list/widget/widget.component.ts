@@ -7,6 +7,9 @@ import { interval } from 'rxjs';
 import { SubscriptionsService } from '../../../../_services/subscriptions.service';
 import { AlertService } from '../../../../_services/alert.service';
 import {IntervalService} from '../../../../_services/interval.service';
+import {MatDialog} from '@angular/material';
+import {AddWidgetDialogComponent} from '../../../desc/service-desc/add-widget-dialog/add-widget-dialog.component';
+import {EditWidgetDialogComponent} from '../../../desc/service-desc/edit-widget-dialog/edit-widget-dialog.component';
 
 @Component({
   selector: 'app-widget',
@@ -21,10 +24,10 @@ export class WidgetComponent implements OnInit {
               private sanitizer: DomSanitizer,
               private subscriptionsService: SubscriptionsService,
               private intervalService: IntervalService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private dialog: MatDialog) {
   }
 
-  edit = false;
   data: WidgetData;
 
   ngOnInit() {
@@ -61,7 +64,16 @@ export class WidgetComponent implements OnInit {
     );
   }
 
-  private delete() {
+  edit(): void {
+    this.dialog.open(EditWidgetDialogComponent, {
+      width: '500px',
+      data: this.widget
+    }).afterClosed().subscribe(() => {
+      this.update();
+    });
+  }
+
+  delete() {
     this.widgetService.delete(this.widget.id).subscribe(
       data => {
         this.intervalService.stop(this.widget.id);
@@ -74,9 +86,16 @@ export class WidgetComponent implements OnInit {
     );
   }
 
+  iconCSS() {
+    return {
+      'background': 'url("' + this.data.icon_image + '")',
+      'background-size': 'cover'
+    };
+  }
+
   backgroundCSS() {
     return {
-      'background': this.data.background_image ? 'url("' + this.data.background_image + '")' : 'red',
+      'background': this.data.background_image ? 'url("' + this.data.background_image + '")' : 'inherit',
       'background-size': 'cover'
     };
   }

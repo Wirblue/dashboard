@@ -1,9 +1,6 @@
 package com.bassintag.dashboard.controller.api;
 
-import com.bassintag.dashboard.dto.WidgetSubscriptionParamsDto;
-import com.bassintag.dashboard.dto.ServiceDto;
-import com.bassintag.dashboard.dto.WidgetDto;
-import com.bassintag.dashboard.dto.WidgetSubscriptionDto;
+import com.bassintag.dashboard.dto.*;
 import com.bassintag.dashboard.exception.BadRequestException;
 import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.service.ApplicationServiceService;
@@ -37,14 +34,16 @@ public class ApplicationServiceController {
     }
 
     @GetMapping
-    public ServiceDto[] services() {
+    public UserServiceDto[] services(Principal principal) {
+        User user = userService.getUserByUsername(principal.getName());
         return Arrays.stream(applicationServiceService.getApplicationServices())
-                .map(ServiceDto::new).toArray(ServiceDto[]::new);
+                .map(s -> new UserServiceDto(s, user)).toArray(UserServiceDto[]::new);
     }
 
     @GetMapping("/{serviceName}")
-    public ServiceDto service(@PathVariable String serviceName) {
-        return new ServiceDto(applicationServiceService.getServiceByName(serviceName));
+    public UserServiceDto service(@PathVariable String serviceName, Principal principal) {
+        User user = userService.getUserByUsername(principal.getName());
+        return new UserServiceDto(applicationServiceService.getServiceByName(serviceName), user);
     }
 
     @GetMapping("/{serviceName]/widgets")

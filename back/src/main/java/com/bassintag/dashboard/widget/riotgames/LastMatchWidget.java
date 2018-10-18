@@ -45,11 +45,11 @@ public class LastMatchWidget extends WidgetDefinition<RiotGamesApplicationServic
             MatchDto match = getService().matchById(matchRef.getGameId());
             ParticipantDto participant = match.getParticipantByAccountId(player.getAccountId());
             ParticipantStatsDto stats = participant.getStats();
-            widgetDataDto.setTitle(player.getName() + " last match");
+            widgetDataDto.setSubtitle(player.getName() + " last match");
             ChampionDto champion = getService().championById(matchRef.getChampion());
-            widgetDataDto.setSubtitle(String.format("%s. KDA: %d/%d/%d",
+            widgetDataDto.setTitle(String.format("%s. KDA: %d/%d/%d",
                     (stats.isWin() ? "Won" : "Lost"), stats.getKills(), stats.getDeaths(), stats.getAssists()));
-            widgetDataDto.setBackgroundImage(getService().championIcon(champion));
+            widgetDataDto.setBackgroundImage(getService().championSplash(champion));
             widgetDataDto.setIconImage(getService().profileIcon(player));
         }
         return widgetDataDto;

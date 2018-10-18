@@ -3,6 +3,7 @@ package com.bassintag.dashboard.service.application;
 import com.bassintag.dashboard.service.auth.IOAuthService;
 import com.bassintag.dashboard.widget.IWidgetDefinition;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +22,25 @@ public abstract class ApplicationService implements IApplicationService {
 
     private IOAuthService authService;
 
-    protected ApplicationService(String name, IOAuthService authService) {
+    private final Color displayColor;
+
+    protected ApplicationService(String name, IOAuthService authService, Color displayColor) {
         this.name = name;
         this.authService = authService;
         widgets = new ArrayList<>();
+        this.displayColor = displayColor;
+    }
+
+    protected ApplicationService(String name, Color color) {
+        this(name, null, color);
+    }
+
+    protected ApplicationService(String name, IOAuthService authService) {
+        this(name, authService, Color.WHITE);
     }
 
     protected ApplicationService(String name) {
-        this(name, null);
+        this(name, null, Color.WHITE);
     }
 
     @Override
@@ -49,5 +61,10 @@ public abstract class ApplicationService implements IApplicationService {
     @Override
     public IOAuthService getAuthService() {
         return authService;
+    }
+
+    @Override
+    public Color getDisplayColor() {
+        return displayColor;
     }
 }

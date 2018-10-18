@@ -1,4 +1,4 @@
-<div *ngIf="data" class="data" [ngStyle]="backgroundCSS()">
+<!--<div *ngIf="data" class="data" [ngStyle]="backgroundCSS()">
   <h3><img *ngIf="data.icon_image" style="width: 10%" [src]="sanitizer.bypassSecurityTrustUrl(data.icon_image)">{{data.title}}</h3>
   <p style="font-size: small">{{data.subtitle}}</p>
   <button (click)="get()" class="btn-sm btn-danger">REFRESH</button>
@@ -11,3 +11,25 @@
   {{widget.refresh_time}}
   <button (click)="update()" class="btn-sm btn-danger">UPDATE</button>
 </div>
+-->
+
+
+<mat-card>
+  <mat-card-header>
+    <div class="card-icon" mat-card-avatar [ngStyle]="iconCSS()" *ngIf="data.icon_image"></div>
+    <mat-card-title *ngIf="data.title">
+      {{data.title}}
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="data.subtitle">
+      {{data.subtitle}}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <div class="card-image-container">
+    <img mat-card-image class="card-image" *ngIf="data.background_image" [src]="sanitizer.bypassSecurityTrustUrl(data.background_image)">
+  </div>
+  <mat-card-actions>
+    <button mat-button (click)="get()">Refresh</button>
+    <button mat-button (click)="edit()">Edit</button>
+    <button mat-button color="danger" (click)="delete()">Delete</button>
+  </mat-card-actions>
+</mat-card>

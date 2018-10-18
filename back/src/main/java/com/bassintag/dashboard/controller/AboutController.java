@@ -32,6 +32,7 @@ public class AboutController {
     @GetMapping("/about.json")
     public AboutDto about(HttpServletRequest request) {
         ClientDto clientDto = new ClientDto(request.getRemoteAddr());
-        return new AboutDto(clientDto, new ServerDto(Arrays.stream(applicationServiceService.getApplicationServices()).map(ServiceDto::new).toArray(ServiceDto[]::new)));
+        return new AboutDto(clientDto, new ServerDto(Arrays.stream(applicationServiceService.getApplicationServices())
+                .map(ServiceDto::new).toArray(ServiceDto[]::new)));
     }
 }

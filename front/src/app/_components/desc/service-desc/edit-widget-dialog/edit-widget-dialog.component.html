@@ -1,0 +1,15 @@
+<div mat-dialog-title>
+  <h4 mat-line>Edit Widget</h4>
+</div>
+<div mat-dialog-content>
+  <app-param [param]="param" *ngFor="let param of data.params"></app-param>
+  <div>
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="data.refresh_time" placeholder="Refresh Time">
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data">Close</button>
+</div>
+

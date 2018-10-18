@@ -3,6 +3,8 @@ package com.bassintag.dashboard.service.application;
 import com.bassintag.dashboard.service.auth.IOAuthService;
 import com.bassintag.dashboard.widget.IWidgetDefinition;
 
+import java.awt.*;
+
 /**
  * IApplicationService.java created for dashboard
  *
@@ -19,4 +21,6 @@ public interface IApplicationService {
     IWidgetDefinition[] getWidgets();
 
     IOAuthService getAuthService();
+
+    Color getDisplayColor();
 }

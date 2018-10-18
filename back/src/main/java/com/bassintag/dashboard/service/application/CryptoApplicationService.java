@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.awt.*;
+
 /**
  * CryptoApplicationService.java created for dashboard
  *
@@ -24,7 +26,7 @@ public class CryptoApplicationService extends ApplicationService {
 
     @Autowired
     protected CryptoApplicationService(BinanceConfiguration binanceConfiguration) {
-        super("crypto");
+        super("crypto", new Color(255, 248, 225));
         this.restTemplate = new RestTemplateBuilder().build();
         this.binanceConfiguration = binanceConfiguration;
     }

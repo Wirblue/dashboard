@@ -1,7 +1,10 @@
-<div class="container-fluid desc">
+
+<app-service-desc *ngFor="let service of services" [service-desc]="service"></app-service-desc>
+
+<!--<div class="container-fluid desc">
   <h3><b>SERVICES</b></h3>
   <div class="row" *ngFor="let service of services">
     <app-service-desc class="desc-col col-md-12" [service-desc]="service"></app-service-desc>
     <hr size="30">
   </div>
-</div>
+</div>-->

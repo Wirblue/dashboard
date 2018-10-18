@@ -33,7 +33,7 @@ public class SpotifyAuthService extends OAuthService {
         return spotifyApi
                 .authorizationCodeUri()
                 .state(state)
-                .scope("user-read-birthdate,user-read-email")
+                .scope("user-top-read")
                 .show_dialog(true)
                 .build().execute().toString();
     }

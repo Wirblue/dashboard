@@ -1,7 +1,5 @@
-<div class="container-fluid">
-  <div class="row">
-    <div *ngFor="let widget of widgets" class="col-md-3 container-fluid" style="padding: 1rem">
-      <app-widget [widget]="widget"></app-widget>
-    </div>
-  </div>
-</div>
+<mat-grid-list #div [cols]="3">
+  <mat-grid-tile *ngFor="let widget of widgets">
+    <app-widget [widget]="widget"></app-widget>
+  </mat-grid-tile>
+</mat-grid-list>

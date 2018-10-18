@@ -13,7 +13,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GridsterModule } from 'angular-gridster2';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatRippleModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule, MatDialogModule, MatExpansionModule, MatGridListModule, MatIconModule,
+  MatInputModule, MatListModule,
+  MatMenuModule,
+  MatRippleModule, MatSidenavModule,
+  MatToolbarModule, MatTreeModule
+} from '@angular/material';
 
 import { RegisterComponent } from './_components/login/register/register.component';
 import { LoginComponent } from './_components/login/login/login.component';
@@ -27,6 +35,8 @@ import { WidgetComponent } from './_components/list/widget-list/widget/widget.co
 import { WidgetListComponent } from './_components/list/widget-list/widget-list.component';
 import { ListComponent } from './_components/list/list.component';
 import { MeComponent } from './_components/me/me.component';
+import { AddWidgetDialogComponent } from './_components/desc/service-desc/add-widget-dialog/add-widget-dialog.component';
+import { EditWidgetDialogComponent } from './_components/desc/service-desc/edit-widget-dialog/edit-widget-dialog.component';
 
 @NgModule({
   imports: [
@@ -43,7 +53,17 @@ import { MeComponent } from './_components/me/me.component';
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatListModule,
+    MatTreeModule,
+    MatGridListModule,
+    MatIconModule,
+    MatDialogModule
   ],
 
   declarations: [
@@ -60,13 +80,16 @@ import { MeComponent } from './_components/me/me.component';
     WidgetListComponent,
     ListComponent,
     MeComponent,
+    AddWidgetDialogComponent,
+    EditWidgetDialogComponent
   ],
 
   providers: [
     AuthGuard,
     LogGuard
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  entryComponents: [ AddWidgetDialogComponent, EditWidgetDialogComponent ]
 })
 export class AppModule {
 }

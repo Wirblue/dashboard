@@ -7,9 +7,13 @@ import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.service.auth.SpotifyAuthService;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
+import com.wrapper.spotify.model_objects.credentials.AuthorizationCodeCredentials;
+import com.wrapper.spotify.model_objects.specification.Artist;
+import com.wrapper.spotify.model_objects.specification.Track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.io.IOException;
 
 /**
@@ -26,16 +30,42 @@ public class SpotifyApplicationService extends ApplicationService {
 
     @Autowired
     protected SpotifyApplicationService(SpotifyAuthService authService, SpotifyConfiguration configuration) {
-        super("spotify", authService);
+        super("spotify", authService, new Color(232, 245, 233));
         this.configuration = configuration;
     }
 
     private SpotifyApi getClient(User user) {
         AccessToken accessToken = getAuthService().getAccessToken(user);
-        return configuration.builder()
+        SpotifyApi spotifyApi = configuration.builder()
                 .setAccessToken(accessToken.getAccessToken())
                 .setRefreshToken(accessToken.getRefreshToken())
                 .build();
+        try {
+            AuthorizationCodeCredentials credentials = spotifyApi.authorizationCodeRefresh().build().execute();
+            spotifyApi.setAccessToken(credentials.getAccessToken());
+            spotifyApi.setRefreshToken(credentials.getRefreshToken());
+        } catch (IOException | SpotifyWebApiException e) {
+            throw new BadRequestException("Bad response from spotify");
+        }
+        return spotifyApi;
+    }
+
+    public Artist getTopArtist(User user) {
+        SpotifyApi client = getClient(user);
+        try {
+            return client.getUsersTopArtists().limit(1).build().execute().getItems()[0];
+        } catch (IOException | SpotifyWebApiException e) {
+            throw new BadRequestException("Bad response from spotify");
+        }
+    }
+
+    public Track getTopTrack(User user) {
+        SpotifyApi client = getClient(user);
+        try {
+            return client.getUsersTopTracks().limit(1).build().execute().getItems()[0];
+        } catch (IOException | SpotifyWebApiException e) {
+            throw new BadRequestException("Bad response from spotify");
+        }
     }
 
     public com.wrapper.spotify.model_objects.specification.User getCurrentUser(User user) {

@@ -1,0 +1,18 @@
+mat-toolbar {
+  z-index: 10;
+}
+
+mat-sidenav {
+  display: flex;
+  width: 380px;
+}
+
+mat-sidenav-container {
+  position: absolute;
+  text-align: start;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}

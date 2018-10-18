@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.Resource;
+import java.awt.*;
 
 /**
  * MeteoService.java created for dashboard
@@ -33,7 +34,7 @@ public class WeatherApplicationService extends ApplicationService {
     private RestTemplate restTemplate;
 
     public WeatherApplicationService(WeatherAppConfiguration weatherAppConfiguration) {
-        super("weather");
+        super("weather", new Color( 	225, 245, 254));
         this.weatherAppConfiguration = weatherAppConfiguration;
         restTemplate = new RestTemplateBuilder().build();
     }

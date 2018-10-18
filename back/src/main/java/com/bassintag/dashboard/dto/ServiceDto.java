@@ -3,6 +3,7 @@ package com.bassintag.dashboard.dto;
 import com.bassintag.dashboard.service.application.IApplicationService;
 import lombok.Data;
 
+import java.awt.*;
 import java.util.Arrays;
 
 /**
@@ -20,13 +21,12 @@ public class ServiceDto {
         widgets = Arrays.stream(service.getWidgets())
                 .map(WidgetDto::new)
                 .toArray(WidgetDto[]::new);
-        if (service.getAuthService() != null)
-            authService = service.getAuthService().getName();
+        displayColor = new ColorDto(service.getDisplayColor());
     }
 
     private String name;
 
-    private String authService;
-
     private WidgetDto[] widgets;
+
+    private ColorDto displayColor;
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, Input, OnInit} from '@angular/core';
 import {WidgetDesc} from '../../../_class/widget/widget-desc';
 
 @Component({
@@ -10,8 +10,12 @@ export class WidgetListComponent implements OnInit {
 
   @Input('widgets') widgets: WidgetDesc[];
 
+  itemsPerRow: number;
+
+
   constructor() {
-}
+    this.itemsPerRow = 3;
+  }
 
   ngOnInit() {
   }

@@ -3,3 +3,23 @@
   border: 3px black;
   height: 100%;
 }
+
+mat-card-header {
+  text-align: start;
+}
+
+.card-icon {
+  background-position: center;
+  background-size: cover;
+}
+
+.card-image {
+  max-height: 270px;
+  width: auto;
+  overflow: hidden;
+}
+
+.card-image-container {
+  width: 100%;
+  text-align: center;
+}
