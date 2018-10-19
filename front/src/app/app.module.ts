@@ -37,6 +37,7 @@ import { ListComponent } from './_components/list/list.component';
 import { MeComponent } from './_components/me/me.component';
 import { AddWidgetDialogComponent } from './_components/desc/service-desc/add-widget-dialog/add-widget-dialog.component';
 import { EditWidgetDialogComponent } from './_components/desc/service-desc/edit-widget-dialog/edit-widget-dialog.component';
+import { AlertDialogComponent } from './_components/alerts/alert-dialog/alert-dialog.component';
 
 @NgModule({
   imports: [
@@ -81,7 +82,8 @@ import { EditWidgetDialogComponent } from './_components/desc/service-desc/edit-
     ListComponent,
     MeComponent,
     AddWidgetDialogComponent,
-    EditWidgetDialogComponent
+    EditWidgetDialogComponent,
+    AlertDialogComponent
   ],
 
   providers: [
@@ -89,7 +91,7 @@ import { EditWidgetDialogComponent } from './_components/desc/service-desc/edit-
     LogGuard
   ],
   bootstrap: [ AppComponent ],
-  entryComponents: [ AddWidgetDialogComponent, EditWidgetDialogComponent ]
+  entryComponents: [ AddWidgetDialogComponent, EditWidgetDialogComponent, AlertDialogComponent ]
 })
 export class AppModule {
 }

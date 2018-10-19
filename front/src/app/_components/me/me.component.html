@@ -1,4 +1,4 @@
-<i *ngIf="me">
-  Connecté en temps que {{me.username}}
-  <button class="btn-dark btn-sm" (click)="logout()">Logout</button>
+<i *ngIf="me" class="me-container">
+  Welcome {{me.username}} !
+  <button (click)="logout()" mat-button>Logout</button>
 </i>

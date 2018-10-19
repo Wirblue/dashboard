@@ -16,3 +16,7 @@ mat-sidenav-container {
   right: 0;
   background: #eee;
 }
+
+.example-fill-remaining-space {
+  flex: 1 1 auto;
+}

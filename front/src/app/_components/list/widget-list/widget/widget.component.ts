@@ -18,8 +18,6 @@ import {EditWidgetDialogComponent} from '../../../desc/service-desc/edit-widget-
 })
 export class WidgetComponent implements OnInit {
 
-  @Input('widget') widget: WidgetDesc;
-
   constructor(private widgetService: WidgetService,
               private sanitizer: DomSanitizer,
               private subscriptionsService: SubscriptionsService,
@@ -28,9 +26,13 @@ export class WidgetComponent implements OnInit {
               private dialog: MatDialog) {
   }
 
+  @Input('widget') widget: WidgetDesc;
+
   data: WidgetData;
+  updateDate: Date;
 
   ngOnInit() {
+    this.setUpdateTime(new Date());
     this.intervalService.add(this.widget.id, this);
     this.intervalService.start(this.widget.id, this.widget.refresh_time);
     this.get();
@@ -40,6 +42,7 @@ export class WidgetComponent implements OnInit {
     this.widgetService.get(this.widget.id).subscribe(
       data => {
         this.data = data.data;
+        this.setUpdateTime(new Date());
       },
       error => {
         this.alertService.addAlert('Update Widget ' + this.widget.id, error.error.message);
@@ -55,6 +58,7 @@ export class WidgetComponent implements OnInit {
       data => {
         this.get();
         this.intervalService.start(this.widget.id, this.widget.refresh_time);
+        this.setUpdateTime(new Date());
       },
       error => {
         this.alertService.addAlert('Update Widget ' + this.widget.id, error.error.message);
@@ -84,6 +88,10 @@ export class WidgetComponent implements OnInit {
         this.data = new WidgetDataError(error.error.message);
       }
     );
+  }
+
+  setUpdateTime(date: Date) {
+    this.updateDate = date;
   }
 
   iconCSS() {

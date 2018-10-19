@@ -1,0 +1,5 @@
+<div *ngFor="let alert of alerts?.reverse()">
+  <div class="alert {{alert.css_class}}" style="font-size: small" role="alert">
+    {{alert.date.toString().slice(4, 24)}} <b>{{alert.title}} :</b> {{alert.desc}}
+  </div>
+</div>

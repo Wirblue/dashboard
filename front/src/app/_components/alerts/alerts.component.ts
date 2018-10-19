@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AlertService} from '../../_services/alert.service';
 import {Alert} from '../../_class/alert';
+import {MatDialog} from '@angular/material';
+import {AlertDialogComponent} from './alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-alerts',
@@ -9,7 +11,8 @@ import {Alert} from '../../_class/alert';
 })
 export class AlertsComponent implements OnInit {
 
-  constructor(private alertService: AlertService) {
+  constructor(private alertService: AlertService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -17,5 +20,12 @@ export class AlertsComponent implements OnInit {
 
   getAlerts(): Alert[] {
     return this.alertService.alerts;
+  }
+
+  open() {
+    this.dialog.open(AlertDialogComponent, {
+      width: '80%',
+      data: this.getAlerts()
+    });
   }
 }
