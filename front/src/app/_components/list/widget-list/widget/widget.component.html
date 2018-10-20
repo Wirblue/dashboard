@@ -14,7 +14,10 @@
   </div>
 
   <div class="content">
-    <div *ngIf="data && data.background_image" style="width: 100%; height: 100%" [ngStyle]="backgroundCSS()"></div>
+    <div *ngIf="data && data.background_image" class="background" style="width: 100%; height: 100%" [ngStyle]="backgroundCSS()"></div>
+    <div *ngIf="data && !data.brackground_image && data.text">
+      <p>{{data.text}}</p>
+    </div>
   </div>
 
   <div class="footer">

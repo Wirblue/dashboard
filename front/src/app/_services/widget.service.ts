@@ -25,8 +25,8 @@ export class WidgetService {
     return this.http.get<Widget>(GlobalVariable.API_URL + '/subscriptions/' + id, { headers: this.initHeader() });
   }
 
-  update(widget: WidgetDesc): Observable<Widget> {
-    return this.http.put<Widget>(GlobalVariable.API_URL + '/subscriptions/' + widget.id, widget, { headers: this.initHeader()});
+  update(widget: WidgetDesc): Observable<WidgetDesc> {
+    return this.http.put<WidgetDesc>(GlobalVariable.API_URL + '/subscriptions/' + widget.id, widget, { headers: this.initHeader()});
   }
 
   delete(id: number) {

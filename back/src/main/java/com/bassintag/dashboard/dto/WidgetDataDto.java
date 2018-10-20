@@ -19,4 +19,6 @@ public class WidgetDataDto {
     public String iconImage;
 
     public String backgroundImage;
+
+    public String text;
 }

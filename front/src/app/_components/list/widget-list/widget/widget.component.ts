@@ -73,6 +73,7 @@ export class WidgetComponent implements OnInit {
     this.intervalService.stop(this.id);
     this.widgetService.update(this.desc).subscribe(
       data => {
+        this.desc = data;
         this.get();
         this.intervalService.start(this.desc.id, this.desc.refresh_time);
         this.setUpdateTime(new Date());
@@ -86,6 +87,7 @@ export class WidgetComponent implements OnInit {
   }
 
   edit(): void {
+    this.intervalService.stop(this.id);
     this.dialog.open(EditWidgetDialogComponent, {
       width: '500px',
       data: this.desc
@@ -113,14 +115,16 @@ export class WidgetComponent implements OnInit {
 
   iconCSS() {
     return {
-      'background': 'url("' + this.data.icon_image + '")',
-      'background-size': 'cover'
+      'background-image': 'url("' + this.data.icon_image + '")',
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center'
     };
   }
 
   backgroundCSS() {
     return {
-      'background': this.data.background_image ? 'url("' + this.data.background_image + '")' : 'inherit',
+      'background-image': 'url("' + this.data.background_image + '")',
       'background-size': 'contain',
       'background-repeat': 'no-repeat',
       'background-position': 'center',
