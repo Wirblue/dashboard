@@ -1,22 +1,29 @@
-<mat-card>
-  <div *ngIf="data">
-    <mat-card-header>
-      <div class="card-icon" mat-card-avatar [ngStyle]="iconCSS()" *ngIf="data.icon_image"></div>
-      <mat-card-title *ngIf="data.title">
-        {{data.title}}
-      </mat-card-title>
-      <mat-card-subtitle *ngIf="data.subtitle">
-        {{data.subtitle}}
-      </mat-card-subtitle>
-    </mat-card-header>
-    <div class="card-image-container">
-      <img mat-card-image class="card-image" *ngIf="data.background_image" [src]="sanitizer.bypassSecurityTrustUrl(data.background_image)">
+<mat-card class="widget-container">
+  <div class="header">
+    <div *ngIf="data">
+      <mat-card-header>
+        <div class="card-icon" mat-card-avatar [ngStyle]="iconCSS()" *ngIf="data.icon_image"></div>
+        <mat-card-title *ngIf="data.title">
+          {{data.title}}
+        </mat-card-title>
+        <mat-card-subtitle *ngIf="data.subtitle">
+          {{data.subtitle}}
+        </mat-card-subtitle>
+      </mat-card-header>
     </div>
   </div>
-  <i style="font: small italic">Last update : {{this.updateDate.toString().slice(4, 24)}}</i>
-  <mat-card-actions *ngIf="desc">
-    <button mat-button (click)="get()">Refresh</button>
-    <button mat-button (click)="edit()">Edit</button>
-    <button mat-button color="danger" (click)="delete()">Delete</button>
-  </mat-card-actions>
+
+  <div class="content">
+    <div *ngIf="data && data.background_image" style="width: 100%; height: 100%" [ngStyle]="backgroundCSS()"></div>
+  </div>
+
+  <div class="footer">
+    <mat-card-footer>
+      <button mat-button (click)="get()"><span class="fa fa-refresh"></span></button>
+      <button [disabled]="!desc" mat-button (click)="edit()"><span class="fa fa-edit"></span></button>
+      <button mat-button color="danger" (click)="delete()"><span class="fa fa-close"></span></button>
+      <br>
+      <i style="font: small italic">Last update : {{this.updateDate.toString().slice(4, 24)}}</i>
+    </mat-card-footer>
+  </div>
 </mat-card>

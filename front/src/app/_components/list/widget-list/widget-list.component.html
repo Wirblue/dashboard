@@ -1,19 +1,7 @@
-<!--<mat-grid-list #div [cols]="3">
-  <mat-grid-tile *ngFor="let widget of widgets">
-    <app-widget [id]="widget.id"></app-widget>
-  </mat-grid-tile>
-</mat-grid-list>-->
-<!--<div class="container-fluid">
-  <div class="row">
-    <div *ngFor="let widgetId of widgets" class="col-md-3 container-fluid" style="padding: 1rem">
-      <app-widget [widget]="widgetId"></app-widget>
-    </div>
-  </div>
-</div>-->
 <div style="height: 100%;">
-  <gridster [options]="options">
+  <gridster class="grid" [options]="options">
     <gridster-item [item]="item" *ngFor="let item of widgets">
-      <app-widget [id]="item.id"></app-widget>
+      <app-widget style="margin: 0" [id]="item.id"></app-widget>
     </gridster-item>
   </gridster>
 </div>

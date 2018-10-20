@@ -3,3 +3,8 @@ app-widget {
   max-height: 100%;
   margin: 32px;
 }
+
+.grid {
+  height: 100%;
+  overflow: scroll;
+}

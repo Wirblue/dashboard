@@ -26,6 +26,6 @@ export class AlertsComponent implements OnInit {
     this.dialog.open(AlertDialogComponent, {
       width: '80%',
       data: this.getAlerts()
-    });
+    }).afterClosed().subscribe(() => this.alertService.clear());
   }
 }

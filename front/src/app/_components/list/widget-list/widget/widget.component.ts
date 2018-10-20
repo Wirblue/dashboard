@@ -121,7 +121,9 @@ export class WidgetComponent implements OnInit {
   backgroundCSS() {
     return {
       'background': this.data.background_image ? 'url("' + this.data.background_image + '")' : 'inherit',
-      'background-size': 'cover'
+      'background-size': 'contain',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center',
     };
   }
 }
