@@ -28,14 +28,15 @@ public class CryptoTickerWidget extends WidgetDefinition<CryptoApplicationServic
     @Override
     protected ParamDto[] setupParams() {
         return new ParamDto[]{
-                new ParamDto("pair", "string")
+                new ParamDto("symbol1", "string"),
+                new ParamDto("symbol2", "string"),
         };
     }
 
     @Override
     protected WidgetDataDto renderData(User user, WidgetSubscriptionParamsDto params) {
         WidgetDataDto widgetDataDto = new WidgetDataDto();
-        CryptoTickerDto ticker = getService().getPairPrice(params.getString("pair"));
+        CryptoTickerDto ticker = getService().getPairPrice(params.getString("symbol1") + params.getString("symbol2"));
         widgetDataDto.setTitle(ticker.getSymbol());
         widgetDataDto.setSubtitle("Exchange rate: " + ticker.getPrice().replaceAll("0+$", ""));
         return widgetDataDto;

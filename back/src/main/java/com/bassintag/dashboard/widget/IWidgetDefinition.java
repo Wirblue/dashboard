@@ -31,4 +31,6 @@ public interface IWidgetDefinition {
     WidgetSubscription subscribe(User user, ParamValueDto[] params);
 
     RenderedWidgetDto render(User user, WidgetSubscription subscription);
+
+    long getMinimumRefreshTime();
 }

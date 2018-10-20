@@ -85,8 +85,12 @@ public class WidgetSubscriptionService {
     public WidgetSubscriptionDto updateByUserAndId(User user, long id, WidgetSubscriptionDto data) {
         Optional<WidgetSubscription> optSubscription = widgetSubscriptionRepository.getByUserAndId(user, id);
         WidgetSubscription subscription = optSubscription.orElseThrow(() -> new NotFoundException("Cannot find this widget"));
-        if (data.getRefreshTime() > 0)
+        if (data.getRefreshTime() > 0) {
+            IWidgetDefinition definition = getWidgetDefinition(subscription);
+            if (data.getRefreshTime() < definition.getMinimumRefreshTime())
+                throw new BadRequestException("Refresh time is lower than the minimum");
             subscription.setRefreshTime(data.getRefreshTime());
+        }
         if (data.getParams() != null) {
             IWidgetDefinition definition = applicationServiceService.getWidgetByServiceNameAndWidgetName(
                     subscription.getServiceName(), subscription.getWidgetName());
@@ -103,14 +107,15 @@ public class WidgetSubscriptionService {
         return new WidgetSubscriptionDto(subscription);
     }
 
-    public RenderedWidgetDto render(WidgetSubscription widgetSubscription) {
+    private IWidgetDefinition getWidgetDefinition(WidgetSubscription widgetSubscription) {
         Optional<IWidgetDefinition> widget = Arrays.stream(widgets)
                 .filter(w -> w.getService().getName().equals(widgetSubscription.getServiceName()) && w.getName().equals(widgetSubscription.getWidgetName()))
                 .findFirst();
-        if (!widget.isPresent()) {
-            throw new BadRequestException("Invalid widget with service: " + widgetSubscription.getServiceName() + " and name: " + widgetSubscription.getWidgetName());
-        }
-        return widget.get().render(widgetSubscription.getUser(), widgetSubscription);
+        return widget.orElseThrow(() -> new BadRequestException("Invalid widget with service: " + widgetSubscription.getServiceName() + " and name: " + widgetSubscription.getWidgetName()));
+    }
+
+    public RenderedWidgetDto render(WidgetSubscription widgetSubscription) {
+        return getWidgetDefinition(widgetSubscription).render(widgetSubscription.getUser(), widgetSubscription);
     }
 
     public RenderedWidgetDto[] render(WidgetSubscription[] widgetSubscriptions) {

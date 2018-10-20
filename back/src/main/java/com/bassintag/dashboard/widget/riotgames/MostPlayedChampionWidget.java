@@ -22,19 +22,19 @@ import java.util.Comparator;
 public class MostPlayedChampionWidget extends WidgetDefinition<RiotGamesApplicationService> {
 
     public MostPlayedChampionWidget(RiotGamesApplicationService service) {
-        super(service, "most-played-champion", "Displays the most played champion on the last 20 games");
+        super(service, "most-played-champion", "Displays the most played champion on the last 20 games", 10 * 60 * 1000);
     }
 
     @Override
     protected ParamDto[] setupParams() {
         return new ParamDto[]{
-                new ParamDto("summonerName", "string")
+                new ParamDto("summoner-name", "string")
         };
     }
 
     @Override
     protected WidgetDataDto renderData(User user, WidgetSubscriptionParamsDto params) {
-        SummonerDto player = getService().summonerByName(params.getString("summonerName"));
+        SummonerDto player = getService().summonerByName(params.getString("summoner-name"));
         MatchListDto matchListDto = getService().matchListByAccount(player.getAccountId(), 20);
         WidgetDataDto widgetDataDto = new WidgetDataDto();
         if (matchListDto.getMatches().isEmpty()) {

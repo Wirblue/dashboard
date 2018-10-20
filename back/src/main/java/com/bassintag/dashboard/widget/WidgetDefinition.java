@@ -126,4 +126,9 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
     public boolean allowsMultiple() {
         return true;
     }
+
+    @Override
+    public long getMinimumRefreshTime() {
+        return defaultRefreshTime;
+    }
 }

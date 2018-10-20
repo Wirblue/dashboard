@@ -1,7 +1,8 @@
-package com.bassintag.dashboard.widget;
+package com.bassintag.dashboard.widget.weather;
 
 import com.bassintag.dashboard.dto.ParamDto;
 import com.bassintag.dashboard.service.application.WeatherApplicationService;
+import com.bassintag.dashboard.widget.WidgetDefinition;
 
 /**
  * WeatherWidget.java created for dashboard

@@ -5,7 +5,6 @@ import com.bassintag.dashboard.dto.weather.WeatherConditionsDto;
 import com.bassintag.dashboard.dto.WidgetDataDto;
 import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.service.application.WeatherApplicationService;
-import com.bassintag.dashboard.widget.WeatherWidget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
