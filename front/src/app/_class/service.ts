@@ -2,7 +2,7 @@ import { WidgetDesc } from './widget/widget-desc';
 import { AuthServiceDesc } from './auth-service-desc';
 import {Color} from './color';
 
-export class ServiceDesc {
+export class Service {
 
   name: string;
   description: string;

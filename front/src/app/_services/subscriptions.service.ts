@@ -18,38 +18,11 @@ export class SubscriptionsService {
               private intervaleService: IntervalService,
               private alertService: AlertService) {}
 
-  private _widgets: WidgetDesc[] = [];
-
   private initHeader(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'authorization': this.loginService.getToken()
     });
-  }
-
-
-  get widgets(): WidgetDesc[] {
-    return this._widgets;
-  }
-
-  remove(id: number): void {
-    const pos = this._widgets.map(x => {
-      return x.id;
-    }).indexOf(id);
-
-    this._widgets.splice(pos, 1);
-  }
-
-  add(widget: WidgetDesc) {
-    this._widgets.push(widget);
-  }
-
-  refreshWidgets() {
-    this.intervaleService.stopAll();
-    this.getSubscriptions().subscribe(
-      data => this._widgets = data,
-      error => this.alertService.addAlert('refreshWidgets', error.error.message)
-    );
   }
 
   getSubscriptions() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SubscriptionsService} from '../../_services/subscriptions.service';
+import {GridWidgetService} from '../../_services/grid-widget.service';
 
 @Component({
   selector: 'app-list',
@@ -8,7 +9,7 @@ import {SubscriptionsService} from '../../_services/subscriptions.service';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private subscriptionsService: SubscriptionsService) {
+  constructor(private gridWidgetService: GridWidgetService) {
 }
 
   ngOnInit() {
@@ -16,10 +17,10 @@ export class ListComponent implements OnInit {
   }
 
   refreshWidgets() {
-    this.subscriptionsService.refreshWidgets();
+    this.gridWidgetService.refreshWidgets();
   }
 
   getWidgets() {
-    return this.subscriptionsService.widgets;
+    return this.gridWidgetService.widgets;
   }
 }

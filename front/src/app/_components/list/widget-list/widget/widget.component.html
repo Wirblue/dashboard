@@ -14,7 +14,7 @@
     </div>
   </div>
   <i style="font: small italic">Last update : {{this.updateDate.toString().slice(4, 24)}}</i>
-  <mat-card-actions *ngIf="widget">
+  <mat-card-actions *ngIf="desc">
     <button mat-button (click)="get()">Refresh</button>
     <button mat-button (click)="edit()">Edit</button>
     <button mat-button color="danger" (click)="delete()">Delete</button>

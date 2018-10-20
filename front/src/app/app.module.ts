@@ -22,6 +22,7 @@ import {
   MatRippleModule, MatSidenavModule,
   MatToolbarModule, MatTreeModule
 } from '@angular/material';
+import { CookieService } from 'ngx-cookie-service';
 
 import { RegisterComponent } from './_components/login/register/register.component';
 import { LoginComponent } from './_components/login/login/login.component';
@@ -88,7 +89,8 @@ import { AlertDialogComponent } from './_components/alerts/alert-dialog/alert-di
 
   providers: [
     AuthGuard,
-    LogGuard
+    LogGuard,
+    CookieService
   ],
   bootstrap: [ AppComponent ],
   entryComponents: [ AddWidgetDialogComponent, EditWidgetDialogComponent, AlertDialogComponent ]

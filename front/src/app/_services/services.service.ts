@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ServiceDesc } from '../_class/service-desc';
+import { Service } from '../_class/service';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalVariable } from '../globals';
@@ -20,11 +20,11 @@ export class ServicesService {
     });
   }
 
-  getServices(): Observable<ServiceDesc[]> {
-    return this.http.get<ServiceDesc[]>(GlobalVariable.API_URL + '/services', { headers: this.initHeader() });
+  getServices(): Observable<Service[]> {
+    return this.http.get<Service[]>(GlobalVariable.API_URL + '/services', { headers: this.initHeader() });
   }
 
-  subscribe(service: ServiceDesc, widget: WidgetDesc): Observable<WidgetDesc> {
+  subscribe(service: Service, widget: WidgetDesc): Observable<WidgetDesc> {
     const route = GlobalVariable.API_URL + '/services/' + service.name + '/widgets/' + widget.name + '/subscribe';
     return this.http.post<WidgetDesc>(route, { params: widget.params }, { headers: this.initHeader() });
   }
