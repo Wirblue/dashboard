@@ -22,19 +22,19 @@ public class LastMatchWidget extends WidgetDefinition<RiotGamesApplicationServic
 
     @Autowired
     public LastMatchWidget(RiotGamesApplicationService service) {
-        super(service, "last-match", "Displays info about the last played match");
+        super(service, "last-match", "Displays info about the last played match", 60 * 1000);
     }
 
     @Override
     protected ParamDto[] setupParams() {
         return new ParamDto[]{
-                new ParamDto("summonerName", "string")
+                new ParamDto("summoner-name", "string")
         };
     }
 
     @Override
     protected WidgetDataDto renderData(User user, WidgetSubscriptionParamsDto params) {
-        SummonerDto player = getService().summonerByName(params.getString("summonerName"));
+        SummonerDto player = getService().summonerByName(params.getString("summoner-name"));
         MatchListDto matchListDto = getService().matchListByAccount(player.getAccountId(), 1);
         WidgetDataDto widgetDataDto = new WidgetDataDto();
         if (matchListDto.getMatches().isEmpty()) {
