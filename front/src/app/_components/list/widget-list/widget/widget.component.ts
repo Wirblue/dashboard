@@ -3,13 +3,12 @@ import { WidgetService } from '../../../../_services/widget.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { WidgetDesc } from '../../../../_class/widget/widget-desc';
 import { WidgetData, WidgetDataError } from '../../../../_class/widget/widget-data';
-import { interval } from 'rxjs';
 import { SubscriptionsService } from '../../../../_services/subscriptions.service';
 import { AlertService } from '../../../../_services/alert.service';
 import {IntervalService} from '../../../../_services/interval.service';
 import {MatDialog} from '@angular/material';
-import {AddWidgetDialogComponent} from '../../../desc/service-desc/add-widget-dialog/add-widget-dialog.component';
 import {EditWidgetDialogComponent} from '../../../desc/service-desc/edit-widget-dialog/edit-widget-dialog.component';
+import {GridWidgetService} from '../../../../_services/grid-widget.service';
 
 @Component({
   selector: 'app-widget',
@@ -18,48 +17,70 @@ import {EditWidgetDialogComponent} from '../../../desc/service-desc/edit-widget-
 })
 export class WidgetComponent implements OnInit {
 
-  @Input('widget') widget: WidgetDesc;
+  @Input() id: number;
 
   constructor(private widgetService: WidgetService,
               private sanitizer: DomSanitizer,
               private subscriptionsService: SubscriptionsService,
               private intervalService: IntervalService,
               private alertService: AlertService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private gridWidgetService: GridWidgetService) {
   }
 
   data: WidgetData;
+  desc: WidgetDesc;
+  updateDate: Date;
 
   ngOnInit() {
-    this.intervalService.add(this.widget.id, this);
-    this.intervalService.start(this.widget.id, this.widget.refresh_time);
-    this.get();
+    this.setUpdateTime(new Date());
+    this.init();
+  }
+
+  init() {
+    console.log(this.id);
+    this.widgetService.get(this.id).subscribe(
+      data => {
+        this.data = data.data;
+        this.desc = data.widget;
+        this.intervalService.add(this.id, this);
+        this.intervalService.start(this.id, this.desc.refresh_time);
+        this.setUpdateTime(new Date());
+      },
+      error => {
+        this.alertService.addAlert('Update Widget ' + this.id, error.error.message);
+        this.data = new WidgetDataError(error.error.message);
+      }
+    );
   }
 
   get() {
-    this.widgetService.get(this.widget.id).subscribe(
+    this.widgetService.get(this.id).subscribe(
       data => {
         this.data = data.data;
+        this.desc = data.widget;
+        this.setUpdateTime(new Date());
       },
       error => {
-        this.alertService.addAlert('Update Widget ' + this.widget.id, error.error.message);
+        this.alertService.addAlert('Update Widget ' + this.id, error.error.message);
         this.data = new WidgetDataError(error.error.message);
-        this.intervalService.stop(this.widget.id);
+        this.intervalService.stop(this.id);
       }
     );
   }
 
   private update() {
-    this.intervalService.stop(this.widget.id);
-    this.widgetService.update(this.widget).subscribe(
+    this.intervalService.stop(this.id);
+    this.widgetService.update(this.desc).subscribe(
       data => {
         this.get();
-        this.intervalService.start(this.widget.id, this.widget.refresh_time);
+        this.intervalService.start(this.desc.id, this.desc.refresh_time);
+        this.setUpdateTime(new Date());
       },
       error => {
-        this.alertService.addAlert('Update Widget ' + this.widget.id, error.error.message);
+        this.alertService.addAlert('Update Widget ' + this.id, error.error.message);
         this.data = new WidgetDataError(error.error.message);
-        this.intervalService.stop(this.widget.id);
+        this.intervalService.stop(this.id);
       }
     );
   }
@@ -67,23 +88,27 @@ export class WidgetComponent implements OnInit {
   edit(): void {
     this.dialog.open(EditWidgetDialogComponent, {
       width: '500px',
-      data: this.widget
+      data: this.desc
     }).afterClosed().subscribe(() => {
       this.update();
     });
   }
 
   delete() {
-    this.widgetService.delete(this.widget.id).subscribe(
+    this.widgetService.delete(this.id).subscribe(
       data => {
-        this.intervalService.stop(this.widget.id);
-        this.subscriptionsService.remove(this.widget.id);
+        this.intervalService.stop(this.id);
+        this.gridWidgetService.remove(this.id);
       },
       error => {
-        this.alertService.addAlert('Delete Widget ' + this.widget.id, error.error.message);
+        this.alertService.addAlert('Delete Widget ' + this.id, error.error.message);
         this.data = new WidgetDataError(error.error.message);
       }
     );
+  }
+
+  setUpdateTime(date: Date) {
+    this.updateDate = date;
   }
 
   iconCSS() {
@@ -96,7 +121,9 @@ export class WidgetComponent implements OnInit {
   backgroundCSS() {
     return {
       'background': this.data.background_image ? 'url("' + this.data.background_image + '")' : 'inherit',
-      'background-size': 'cover'
+      'background-size': 'contain',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center',
     };
   }
 }

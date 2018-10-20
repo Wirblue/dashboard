@@ -1,6 +1,3 @@
-<div *ngFor="let alert of getAlerts()">
-  <div *ngIf="alert.new" class="alert {{alert.css_class}}" style="font-size: small" role="alert">
-    <b>{{alert.title}} :</b> {{alert.desc}}
-    <button class="btn-success" (click)="alert.new = false">CLOSE</button>
-  </div>
-</div>
+<button *ngIf="getAlerts().length > 0" mat-mini-fab class="alert-pin" (click)="open()">
+  {{getAlerts().length}}
+</button>

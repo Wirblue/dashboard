@@ -1,5 +1,7 @@
-<mat-grid-list #div [cols]="3">
-  <mat-grid-tile *ngFor="let widget of widgets">
-    <app-widget [widget]="widget"></app-widget>
-  </mat-grid-tile>
-</mat-grid-list>
+<div style="height: 100%;">
+  <gridster class="grid" [options]="options">
+    <gridster-item [item]="item" *ngFor="let item of widgets">
+      <app-widget style="margin: 0" [id]="item.id"></app-widget>
+    </gridster-item>
+  </gridster>
+</div>

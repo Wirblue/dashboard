@@ -14,11 +14,15 @@ export class IntervalService {
 
   start(id: number, refresh_time: number) {
     console.log('START 1', id, refresh_time);
-    this._intervals[id].start(refresh_time);
+    if (this._intervals[id]) {
+      this._intervals[id].start(refresh_time);
+    }
   }
 
   stop(id: number) {
-    this._intervals[id].stop();
+    if (this._intervals[id]) {
+      this._intervals[id].stop();
+    }
   }
 
   stopAll() {
@@ -27,10 +31,6 @@ export class IntervalService {
         i.stop();
       }
     }
-  }
-
-  exist(id: number) {
-    return id in this._intervals;
   }
 
   add(id: number, widgetComp: WidgetComponent) {

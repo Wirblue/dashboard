@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ServicesService} from '../../_services/services.service';
-import {ServiceDesc} from '../../_class/service-desc';
+import {Service} from '../../_class/service';
 import {AlertService} from '../../_services/alert.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class DescComponent implements OnInit {
               private alertService: AlertService) {
   }
 
-  services: ServiceDesc[];
+  services: Service[];
 
   ngOnInit() {
     this.getServices();

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { ServiceDesc } from '../../../_class/service-desc';
+import { Service } from '../../../_class/service';
 import { WidgetDesc } from '../../../_class/widget/widget-desc';
 import {ServicesService} from '../../../_services/services.service';
 import {SubscriptionsService} from '../../../_services/subscriptions.service';
@@ -8,6 +8,7 @@ import {MatDialog} from '@angular/material';
 import {AddWidgetDialogComponent} from './add-widget-dialog/add-widget-dialog.component';
 import {GlobalVariable} from '../../../globals';
 import {LoginService} from '../../../_services/login.service';
+import {GridWidgetService} from '../../../_services/grid-widget.service';
 
 @Component({
   selector: 'app-service-desc',
@@ -16,13 +17,14 @@ import {LoginService} from '../../../_services/login.service';
 })
 export class ServiceDescComponent implements OnInit {
 
-  @Input('service-desc') service: ServiceDesc;
+  @Input('service-desc') service: Service;
 
   constructor(private serviceService: ServicesService,
               private subscriptionsService: SubscriptionsService,
-              private alertService: AlertService,
               private dialog: MatDialog,
-              public loginService: LoginService) {
+              public loginService: LoginService,
+              private alertService: AlertService,
+              private gridWidgetService: GridWidgetService) {
   }
 
   ngOnInit(): void {
@@ -35,7 +37,7 @@ export class ServiceDescComponent implements OnInit {
 
   subscribe(widget: WidgetDesc): void {
     this.serviceService.subscribe(this.service, widget).subscribe(
-      data => this.subscriptionsService.add(data),
+      data => this.gridWidgetService.add(data.id),
       error => this.alertService.addAlert('subscribe', error.error.message)
     );
   }

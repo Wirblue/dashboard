@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 
 import { LoginService } from '../../../_services/login.service';
 import { LoginLogin } from '../../../_class/login-login';
+import {CookieService} from 'ngx-cookie-service';
+import {GlobalVariable} from '../../../globals';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private loginService: LoginService) {
+    private loginService: LoginService,
+    private cookieService: CookieService) {
   }
 
   ngOnInit() {
@@ -30,8 +33,11 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    this.loginService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+    if (this.cookieService.check(GlobalVariable.COOKIE_NAME)) {
+      this.login(this.cookieService.get(GlobalVariable.COOKIE_NAME));
+    }
   }
 
   get f() { return this.loginForm.controls; }
@@ -46,13 +52,18 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.loginService.setToken(data.headers.get('Authorization'));
-          this.router.navigateByUrl('/');
+          this.login(data.headers.get('Authorization'));
         },
         error => {
           this.loginService.handleError(error);
           this.loading = false;
         });
+  }
+
+  login(token: string) {
+    this.cookieService.set(GlobalVariable.COOKIE_NAME, token);
+    this.loginService.setToken(token);
+    this.router.navigateByUrl('/');
   }
 
 }

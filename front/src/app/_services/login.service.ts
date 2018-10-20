@@ -9,13 +9,19 @@ import { Router } from '@angular/router';
 import {AlertService} from './alert.service';
 import {Alert} from '../_class/alert';
 import {User} from '../_class/user';
+import {IntervalService} from './interval.service';
+import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http: HttpClient, private alertService: AlertService) {}
+  constructor(private http: HttpClient,
+              private alertService: AlertService,
+              private intervalService: IntervalService,
+              private cookieService: CookieService) {
+  }
 
   log = false;
   token: string;
@@ -40,7 +46,9 @@ export class LoginService {
   }
 
   logout(): void {
+    this.intervalService.stopAll();
     this.log = false;
+    this.cookieService.delete(GlobalVariable.COOKIE_NAME);
     this.token = null;
   }
 

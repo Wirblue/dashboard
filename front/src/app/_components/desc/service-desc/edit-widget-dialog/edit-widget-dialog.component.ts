@@ -10,7 +10,7 @@ import {WidgetDesc} from '../../../../_class/widget/widget-desc';
 })
 export class EditWidgetDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<AddWidgetDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<EditWidgetDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: WidgetDesc) {
   }
 
