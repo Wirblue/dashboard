@@ -18,7 +18,7 @@
       <h4 mat-line>{{widget.name}}</h4>
       <p mat-line>{{widget.description}}</p>
       <div>
-        <button mat-icon-button (click)="openDialog(widget)">
+        <button mat-icon-button [disabled]="service.auth_service && !service.auth_service.registered" (click)="openDialog(widget)">
           <mat-icon>add</mat-icon>
         </button>
       </div>
