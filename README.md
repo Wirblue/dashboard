@@ -3,9 +3,19 @@ Antoine STEMPFER & Louis MALLEZ
 
 ## Lancement
 
+docker-compose build
+docker-compose up
+
+Ouvrir le navigateur sur http://localhost
+
+Le serveur API est démarré sur localhost:8080
 
 
 ## Token et clés d'API
+
+Les clés d'API doivent etre renseignés dans la config de spring.
+
+Concernant les clés de développement RIOT Games, elles doivent être renouvelés toutes les 24h 
 
 
 
