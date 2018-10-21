@@ -7,6 +7,7 @@
   <div *ngIf="service.auth_service" class="auth-service">
     <div *ngIf="service.auth_service.registered; else notSubscribed">
       <p>Logged in with {{service.auth_service.name}}</p>
+      <button mat-button (click)="authLogout()">Logout</button>
     </div>
     <ng-template #notSubscribed>
       <a mat-raised-button href="{{getAuthUrl()}}">Log in with {{service.auth_service.name}}</a>

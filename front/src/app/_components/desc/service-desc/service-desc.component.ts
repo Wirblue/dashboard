@@ -9,6 +9,7 @@ import {AddWidgetDialogComponent} from './add-widget-dialog/add-widget-dialog.co
 import {GlobalVariable} from '../../../globals';
 import {LoginService} from '../../../_services/login.service';
 import {GridWidgetService} from '../../../_services/grid-widget.service';
+import {AuthorizationService} from '../../../_services/authorization.service';
 
 @Component({
   selector: 'app-service-desc',
@@ -22,7 +23,8 @@ export class ServiceDescComponent implements OnInit {
   constructor(private serviceService: ServicesService,
               private subscriptionsService: SubscriptionsService,
               private dialog: MatDialog,
-              public loginService: LoginService,
+              private loginService: LoginService,
+              private authService: AuthorizationService,
               private alertService: AlertService,
               private gridWidgetService: GridWidgetService) {
   }
@@ -50,5 +52,10 @@ export class ServiceDescComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.subscribe(result);
     });
+  }
+
+  authLogout() {
+    console.log(this.service);
+    this.authService.logout(this.service).subscribe();
   }
 }
