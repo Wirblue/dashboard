@@ -38,18 +38,10 @@ public class SpotifyApplicationService extends ApplicationService {
 
     private SpotifyApi getClient(User user) {
         AccessToken accessToken = getAuthService().getAccessToken(user);
-        SpotifyApi spotifyApi = configuration.builder()
+        return configuration.builder()
                 .setAccessToken(accessToken.getAccessToken())
                 .setRefreshToken(accessToken.getRefreshToken())
                 .build();
-        try {
-            AuthorizationCodeCredentials credentials = spotifyApi.authorizationCodeRefresh().build().execute();
-            spotifyApi.setAccessToken(credentials.getAccessToken());
-            spotifyApi.setRefreshToken(credentials.getRefreshToken());
-        } catch (IOException | SpotifyWebApiException e) {
-            throw new BadRequestException("Bad response from spotify");
-        }
-        return spotifyApi;
     }
 
     public Artist getTopArtist(User user) {

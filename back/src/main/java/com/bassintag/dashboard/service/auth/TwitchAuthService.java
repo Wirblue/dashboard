@@ -15,7 +15,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class TwitchAuthService extends OAuthService{
+public class TwitchAuthService extends OAuthService {
 
     private final TwitchClient client;
     private final TwitchConfiguration configuration;
@@ -39,8 +39,7 @@ public class TwitchAuthService extends OAuthService{
         );
     }
 
-    private TwitchAccessTokenDto getAccessToken(String code)
-    {
+    private TwitchAccessTokenDto getAccessToken(String code) {
         String requestUrl = String.format("%s/oauth2/token", Endpoints.API.getURL());
         RestTemplate restTemplate = new RestTemplate();
         MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();
@@ -52,14 +51,32 @@ public class TwitchAuthService extends OAuthService{
         return restTemplate.postForObject(requestUrl, postParameters, TwitchAccessTokenDto.class);
     }
 
+    private TwitchAccessTokenDto refreshAccessToken(String refreshToken) {
+        String requestUrl = String.format("%s/oauth2/token", Endpoints.API.getURL());
+        RestTemplate restTemplate = new RestTemplate();
+        MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();
+        postParameters.add("grant_type", "refresh_token");
+        postParameters.add("client_id", client.getClientId());
+        postParameters.add("client_secret", client.getClientSecret());
+        postParameters.add("refresh_token", refreshToken);
+        return restTemplate.postForObject(requestUrl, postParameters, TwitchAccessTokenDto.class);
+
+    }
+
     @Override
     public AccessToken createAccessToken(String code) {
-
         TwitchAccessTokenDto credentials = getAccessToken(code);
         AccessToken token = new AccessToken();
         token.setAccessToken(credentials.getAccessToken());
         token.setRefreshToken(credentials.getRefreshToken());
         token.setExpiresIn(credentials.getExpiresIn());
         return token;
+    }
+
+    @Override
+    public void refreshAccessToken(AccessToken accessToken) {
+        TwitchAccessTokenDto credentials = refreshAccessToken(accessToken.getRefreshToken());
+        accessToken.setExpiresIn(credentials.getExpiresIn());
+        accessToken.setAccessToken(credentials.getAccessToken());
     }
 }

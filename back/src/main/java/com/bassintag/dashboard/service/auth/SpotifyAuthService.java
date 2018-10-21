@@ -1,5 +1,7 @@
 package com.bassintag.dashboard.service.auth;
 
+import com.bassintag.dashboard.configuration.SpotifyConfiguration;
+import com.bassintag.dashboard.exception.BadRequestException;
 import com.bassintag.dashboard.model.AccessToken;
 import com.bassintag.dashboard.service.AccessTokenService;
 import com.wrapper.spotify.SpotifyApi;
@@ -21,16 +23,20 @@ import java.io.IOException;
 public class SpotifyAuthService extends OAuthService {
 
     private final SpotifyApi spotifyApi;
+    private final SpotifyConfiguration spotifyConfiguration;
 
     @Autowired
-    public SpotifyAuthService(SpotifyApi spotifyApi, AccessTokenService accessTokenService) {
+    public SpotifyAuthService(SpotifyApi spotifyApi,
+                              SpotifyConfiguration spotifyConfiguration,
+                              AccessTokenService accessTokenService) {
         super(accessTokenService, "spotify");
+        this.spotifyConfiguration = spotifyConfiguration;
         this.spotifyApi = spotifyApi;
     }
 
     @Override
     public String getAuthUri(String state) {
-        return spotifyApi
+        return  spotifyApi
                 .authorizationCodeUri()
                 .state(state)
                 .scope("user-top-read")
@@ -51,5 +57,20 @@ public class SpotifyAuthService extends OAuthService {
         accessToken.setRefreshToken(credentials.getRefreshToken());
         accessToken.setExpiresIn(credentials.getExpiresIn());
         return accessToken;
+    }
+
+    @Override
+    public void refreshAccessToken(AccessToken accessToken) {
+        AuthorizationCodeCredentials credentials;
+        try {
+            credentials = spotifyConfiguration.builder()
+                    .setRefreshToken(accessToken.getRefreshToken())
+                    .setAccessToken(accessToken.getAccessToken())
+                    .build().authorizationCodeRefresh().build().execute();
+        } catch (IOException | SpotifyWebApiException e) {
+            throw new BadRequestException("Invalid response from spotify");
+        }
+        accessToken.setAccessToken(credentials.getAccessToken());
+        accessToken.setExpiresIn(credentials.getExpiresIn());
     }
 }

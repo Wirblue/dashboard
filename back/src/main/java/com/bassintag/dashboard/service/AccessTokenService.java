@@ -28,10 +28,13 @@ public class AccessTokenService {
         this.repository = repository;
     }
 
-    public void deleteByUserAndService(User user, String name)
-    {
+    public void deleteByUserAndService(User user, String name) {
         repository.findByUserAndService(user, name).ifPresent(t -> repository.deleteById(t.getId()));
 
+    }
+
+    public void updateAccessToken(AccessToken accessToken) {
+        repository.save(accessToken);
     }
 
     public void saveAccessToken(IOAuthService service, User user, String code) {
