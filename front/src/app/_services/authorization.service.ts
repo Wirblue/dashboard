@@ -3,6 +3,8 @@ import {Service} from '../_class/service';
 import {GlobalVariable} from '../globals';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LoginService} from './login.service';
+import {AuthServiceDesc} from '../_class/auth-service-desc';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,7 @@ export class AuthorizationService {
     });
   }
 
-  logout(service: Service) {
-    return this.http.delete(GlobalVariable.API_URL + '/authorizations/' + service.name, { headers: this.initHeader() });
+  logout(service: Service): Observable<AuthServiceDesc> {
+    return this.http.delete<AuthServiceDesc>(GlobalVariable.API_URL + '/authorizations/' + service.name, { headers: this.initHeader() });
   }
 }
