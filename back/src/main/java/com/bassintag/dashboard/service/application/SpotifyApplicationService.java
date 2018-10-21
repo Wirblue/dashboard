@@ -5,9 +5,11 @@ import com.bassintag.dashboard.exception.BadRequestException;
 import com.bassintag.dashboard.model.AccessToken;
 import com.bassintag.dashboard.model.User;
 import com.bassintag.dashboard.service.auth.SpotifyAuthService;
+import com.neovisionaries.i18n.CountryCode;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.AuthorizationCodeCredentials;
+import com.wrapper.spotify.model_objects.specification.AlbumSimplified;
 import com.wrapper.spotify.model_objects.specification.Artist;
 import com.wrapper.spotify.model_objects.specification.Track;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +65,15 @@ public class SpotifyApplicationService extends ApplicationService {
         SpotifyApi client = getClient(user);
         try {
             return client.getUsersTopTracks().limit(1).build().execute().getItems()[0];
+        } catch (IOException | SpotifyWebApiException e) {
+            throw new BadRequestException("Bad response from spotify");
+        }
+    }
+
+    public AlbumSimplified[] getNews(User user, int size, CountryCode country) {
+        SpotifyApi client = getClient(user);
+        try {
+            return client.getListOfNewReleases().limit(size).offset(0).country(country).build().execute().getItems();
         } catch (IOException | SpotifyWebApiException e) {
             throw new BadRequestException("Bad response from spotify");
         }
