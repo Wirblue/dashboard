@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.awt.*;
+import java.net.URI;
 
 @Service
 public class TwitchApplicationService extends ApplicationService{
@@ -44,26 +45,21 @@ public class TwitchApplicationService extends ApplicationService{
     public Channel getUserChannel(User user) {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> entity = new HttpEntity<>("parameters", getHeadersAuth(user));
-        System.out.println("REQUESTING: " + Endpoints.API.getURL() + "/channel");
         return restTemplate.exchange(Endpoints.API.getURL() + "/channel", HttpMethod.GET, entity, Channel.class).getBody();
     }
 
     public GameContainerDto getGames(String name) {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> entity = new HttpEntity<>("parameters", getHeaders());
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(Endpoints.API.getURL() + "/search/games")
-                .queryParam("query", name);
-        return restTemplate.exchange(builder.encode().build().toUri(), HttpMethod.GET, entity, GameContainerDto.class).getBody();
+        String url = Endpoints.API.getURL() + "/search/games?query={name}";
+        return restTemplate.exchange(url, HttpMethod.GET, entity, GameContainerDto.class, name).getBody();
     }
 
     public StreamContainerDto getLive(String game, String language, int limit) {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> entity = new HttpEntity<>("parameters", getHeaders());
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(Endpoints.API.getURL() + "/streams")
-                .queryParam("language", language)
-                .queryParam("game", game)
-                .queryParam("limit", limit);
-        return restTemplate.exchange(builder.encode().build().toUri(), HttpMethod.GET, entity, StreamContainerDto.class).getBody();
+        String url = Endpoints.API.getURL() + "/streams?language={language}&game={game}&limit={limit}";
+        return restTemplate.exchange(url, HttpMethod.GET, entity, StreamContainerDto.class, language, game, limit).getBody();
     }
 
 
