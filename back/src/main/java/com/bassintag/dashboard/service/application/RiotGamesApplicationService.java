@@ -103,6 +103,12 @@ public class RiotGamesApplicationService extends ApplicationService {
     }
 
     @Cacheable
+    public ChampionMasteryDto[] championMasteries(long id) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+                riotGamesConfiguration.getBaseUrl() + "/lol/champion-mastery/v3/champion-masteries/by-summoner/" + id);
+        return invoke(builder, ChampionMasteryDto[].class);
+    }
+    @Cacheable
     public ChampionDto championById(long id) {
         String key = String.valueOf(id);
         Optional<ChampionDto> champion = self.champions(self.versions()[0]).getData().entrySet()
@@ -112,6 +118,7 @@ public class RiotGamesApplicationService extends ApplicationService {
         }
         return champion.get();
     }
+
 
     private <T> T invoke(UriComponentsBuilder builder, Class<T> clazz) {
         builder.queryParam("api_key", riotGamesConfiguration.getKey());

@@ -14,7 +14,7 @@ export class ParamComponent implements OnInit {
   @Input('param') param: WidgetParam;
 
   a = {
-    'int': 'number',
+    'int': 'integer',
     'password': 'password',
     'boolean': 'checkbox',
     'string': 'text',

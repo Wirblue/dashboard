@@ -30,7 +30,7 @@ public class WeatherConditionsWidget extends WeatherWidget {
         WeatherConditionsDto weather = getService().getWeatherConditions(city);
         widgetDataDto.setTitle(city);
         widgetDataDto.setSubtitle(weather.getMain() + " - " + weather.getDescription());
-        widgetDataDto.setIconImage(getService().getIconUrl(weather.getIcon()));
+        widgetDataDto.setBackgroundImage(getService().getIconUrl(weather.getIcon()));
         return widgetDataDto;
     }
 }
