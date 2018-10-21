@@ -15,7 +15,5 @@ import java.util.Optional;
  */
 public interface AccessTokenRepository extends JpaRepository<AccessToken, Long> {
 
-    void deleteByUserAndService(User user, String service);
-
     Optional<AccessToken> findByUserAndService(User user, String service);
 }

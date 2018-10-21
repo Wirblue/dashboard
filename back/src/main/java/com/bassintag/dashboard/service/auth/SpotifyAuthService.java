@@ -49,6 +49,7 @@ public class SpotifyAuthService extends OAuthService {
         AccessToken accessToken = new AccessToken();
         accessToken.setAccessToken(credentials.getAccessToken());
         accessToken.setRefreshToken(credentials.getRefreshToken());
+        accessToken.setExpiresIn(credentials.getExpiresIn());
         return accessToken;
     }
 }

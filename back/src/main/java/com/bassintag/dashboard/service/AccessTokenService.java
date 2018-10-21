@@ -30,7 +30,8 @@ public class AccessTokenService {
 
     public void deleteByUserAndService(User user, String name)
     {
-        repository.deleteByUserAndService(user, name);
+        repository.findByUserAndService(user, name).ifPresent(t -> repository.deleteById(t.getId()));
+
     }
 
     public void saveAccessToken(IOAuthService service, User user, String code) {

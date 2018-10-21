@@ -54,10 +54,12 @@ public class TwitchAuthService extends OAuthService{
 
     @Override
     public AccessToken createAccessToken(String code) {
+
         TwitchAccessTokenDto credentials = getAccessToken(code);
         AccessToken token = new AccessToken();
         token.setAccessToken(credentials.getAccessToken());
         token.setRefreshToken(credentials.getRefreshToken());
+        token.setExpiresIn(credentials.getExpiresIn());
         return token;
     }
 }
