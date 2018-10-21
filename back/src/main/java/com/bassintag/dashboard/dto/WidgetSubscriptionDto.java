@@ -3,6 +3,10 @@ package com.bassintag.dashboard.dto;
 import com.bassintag.dashboard.model.WidgetSubscription;
 import com.bassintag.dashboard.service.WidgetSubscriptionService;
 import com.bassintag.dashboard.widget.IWidgetDefinition;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 
 /**
@@ -19,6 +23,7 @@ public class WidgetSubscriptionDto {
 
     private long refreshTime;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private WidgetDto widgetDefinition;
 
     private ParamValueDto[] params;

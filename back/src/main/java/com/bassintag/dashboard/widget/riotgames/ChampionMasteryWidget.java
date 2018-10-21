@@ -48,7 +48,7 @@ public class ChampionMasteryWidget extends WidgetDefinition<RiotGamesApplication
             widgetDataDto.setSubtitle("No mastery to show");
         } else {
             ChampionDto champion = getService().championById(mastery[rank - 1].getChampionId());
-            widgetDataDto.setTitle(player.getName() + "'s " + params.getInt("rank") + " champion is " + champion.getName());
+            widgetDataDto.setTitle(player.getName() + "'s #" + params.getInt("rank") + " champion is " + champion.getName());
             widgetDataDto.setSubtitle("Mastery " + mastery[rank - 1].getChampionLevel() + " with " + mastery[rank - 1].getChampionPoints() + " points");
             widgetDataDto.setIconImage(getService().profileIcon(player));
             widgetDataDto.setBackgroundImage(getService().championSplash(champion));
