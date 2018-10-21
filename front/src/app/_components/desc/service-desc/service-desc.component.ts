@@ -55,7 +55,9 @@ export class ServiceDescComponent implements OnInit {
   }
 
   authLogout() {
-    console.log(this.service);
-    this.authService.logout(this.service).subscribe();
+    this.authService.logout(this.service).subscribe(
+      data => this.service.auth_service = data,
+      error => this.alertService.addAlert('authLogout', error.error.message)
+    );
   }
 }
