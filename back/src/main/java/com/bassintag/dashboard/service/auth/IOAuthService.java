@@ -22,4 +22,6 @@ public interface IOAuthService {
 
     AccessToken getAccessToken(User user);
 
+    void refreshAccessToken(AccessToken accessToken);
+
 }

@@ -51,7 +51,6 @@ public class AuthServiceController {
 
     @DeleteMapping("/{name}")
     public AuthServiceDto deleteAuthServiceByName(@PathVariable String name, Principal principal) {
-
         User user = userService.getUserByUsername(principal.getName());
         AuthServiceDto authServiceDto = new AuthServiceDto(authServiceService.getByName(name), user);
         if (!authServiceDto.isRegistered())

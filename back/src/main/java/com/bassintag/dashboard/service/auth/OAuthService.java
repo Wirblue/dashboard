@@ -29,6 +29,13 @@ public abstract class OAuthService implements IOAuthService {
 
     @Override
     public AccessToken getAccessToken(User user) {
-        return accessTokenService.getByUserAndService(user, name);
+        AccessToken accessToken = accessTokenService.getByUserAndService(user, name);
+        long createdAt = System.currentTimeMillis() / 1000;
+        if (accessToken.getCreatedAt() + accessToken.getExpiresIn() < System.currentTimeMillis() / 1000) {
+            refreshAccessToken(accessToken);
+            accessToken.setCreatedAt(createdAt);
+            accessTokenService.updateAccessToken(accessToken);
+        }
+        return accessToken;
     }
 }
