@@ -1,27 +1,65 @@
-# Front
+﻿# Epitek Dashboard
+Antoine STEMPFER & Louis MALLEZ
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
+## Lancement
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Token et clés d'API
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Liste des Services et des Widgets
 
-## Running unit tests
+#### Cat :
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+ - **Random Cat :** Affiche une image aléatoire de chat
+ 
+*https://api.thecatapi.com/v1*
 
-## Running end-to-end tests
+#### Country :
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+ - **Borders :** Affiche la liste les pays frontaliers d'un pays
+ - **Flag :** Affiche le drapeau et la capitale d'un pays
+ - **Informations:** Affiche des informations sur un pays
+ 
+*https://restcountries.eu/rest/v2*
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Crypto
+
+ - **ticker :** Affiche le cours d'une cryptomonnaie.
+ 
+*https://api.binance.com*
+
+### Riot
+
+ - **Top Mastery :** Affiche la meilleure maitrise d'un joueur
+ - **Last Match :** Affiche le dernier match d'un joueur
+ - **Most Played Champion :** Affiche le champion le plus joué par un joueur
+
+*https://euw1.api.riotgames.com*
+
+### Spotify
+
+*Demande un connection OAuth2*
+
+ - **New Release :** Affiche une nouveautés musicale dans un pays
+ - **Top Artiste :** Artiste le plus écouté par l'utilisateur
+ - **Top Track :** Musique la plus écoutée par l'utilisateur
+ - **User :** Affiche les informations de l'utilisateur
+
+### Twitch
+
+*Demande un connection OAuth2*
+
+ - **Channel :** Affiche les informations sur la chaine de l'utilisateur
+ - **Top Streamer :** Affiche le streamer avec le plus de viewers pour un jeu et une langue
+
+### Weather
+
+ - **Condition :** Affiche les conditions météorologique dans une ville
+ - **Sun Info :** Affiche l'heure du lever et du coucher du soleil dans une vile
+ - **Temperature :** Affiche la temperature dans une ville
+ 
+*http://api.openweathermap.org/data/2.5/weather*

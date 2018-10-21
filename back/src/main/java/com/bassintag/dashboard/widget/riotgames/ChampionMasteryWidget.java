@@ -24,7 +24,7 @@ public class ChampionMasteryWidget extends WidgetDefinition<RiotGamesApplication
 
     @Autowired
     public ChampionMasteryWidget(RiotGamesApplicationService service) {
-        super(service, "biggest-masteries", "Summoner best masteries", 60 * 1000);
+        super(service, "top-mastery", "Summoner best masteries", 60 * 1000);
     }
 
     @Override
