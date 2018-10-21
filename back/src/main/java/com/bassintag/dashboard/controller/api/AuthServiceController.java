@@ -57,6 +57,7 @@ public class AuthServiceController {
         if (!authServiceDto.isRegistered())
             throw new BadRequestException("You are not registered to this authorization service");
         accessTokenService.deleteByUserAndService(user, name);
+        authServiceDto.setRegistered(false);
         return authServiceDto;
     }
 }

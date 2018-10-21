@@ -29,4 +29,6 @@ public class AccessToken {
     private String refreshToken;
 
     private long expiresIn;
+
+    private long createdAt;
 }
