@@ -65,6 +65,6 @@ public class ApplicationServiceController {
         if (!widget.allowsMultiple() && user.getWidgets().stream().anyMatch(w -> w.getServiceName().equals(serviceName) && w.getWidgetName().equals(widgetName))) {
             throw new BadRequestException("You are already subscribed to this widget");
         }
-        return new WidgetSubscriptionDto(widgetSubscriptionService.subscribe(widget, user, paramList.getParams()));
+        return new WidgetSubscriptionDto(widget, widgetSubscriptionService.subscribe(widget, user, paramList.getParams()));
     }
 }

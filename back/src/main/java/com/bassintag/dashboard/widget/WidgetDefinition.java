@@ -56,6 +56,9 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
                 case "string":
                     value.asString();
                     break;
+                case "boolean":
+                    value.asBoolean();
+                    break;
                 default:
                     throw new IllegalArgumentException("Invalid type: " + type);
             }
@@ -96,7 +99,7 @@ public abstract class WidgetDefinition<T extends IApplicationService> implements
     @Override
     public RenderedWidgetDto render(User user, WidgetSubscription subscription) {
         RenderedWidgetDto renderedWidgetDto = new RenderedWidgetDto();
-        renderedWidgetDto.setWidget(new WidgetSubscriptionDto(subscription));
+        renderedWidgetDto.setWidget(new WidgetSubscriptionDto(this, subscription));
         WidgetSubscriptionParamsDto paramList = new WidgetSubscriptionParamsDto();
         paramList.setParams(subscription.getParams().stream().map(ParamValueDto::new).toArray(ParamValueDto[]::new));
         renderedWidgetDto.setData(renderData(user, paramList));

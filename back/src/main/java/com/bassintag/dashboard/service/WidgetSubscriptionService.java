@@ -49,7 +49,7 @@ public class WidgetSubscriptionService {
     }
 
     public WidgetSubscriptionDto[] getUserSubscriptions(User user) {
-        return user.getWidgets().stream().map(WidgetSubscriptionDto::new).toArray(WidgetSubscriptionDto[]::new);
+        return user.getWidgets().stream().map(s -> new WidgetSubscriptionDto(this, s)).toArray(WidgetSubscriptionDto[]::new);
     }
 
     public WidgetSubscription getByUserAndId(User user, long id) {
@@ -58,7 +58,8 @@ public class WidgetSubscriptionService {
     }
 
     public WidgetSubscriptionDto deleteByUserAndId(User user, long id) {
-        WidgetSubscriptionDto ret = new WidgetSubscriptionDto(getByUserAndId(user, id));
+
+        WidgetSubscriptionDto ret = new WidgetSubscriptionDto(this, getByUserAndId(user, id));
         widgetSubscriptionRepository.deleteById(ret.getId());
         return ret;
     }
@@ -66,7 +67,7 @@ public class WidgetSubscriptionService {
     public WidgetSubscriptionDto updateRefreshTimeByUserAndId(User user, long id, long refreshTime) {
         WidgetSubscription subscription = getByUserAndId(user, id);
         subscription.setRefreshTime(refreshTime);
-        return new WidgetSubscriptionDto(subscription);
+        return new WidgetSubscriptionDto(this, subscription);
     }
 
     public WidgetSubscription[] getUserSubscriptions(User user, String service) {
@@ -85,16 +86,15 @@ public class WidgetSubscriptionService {
     public WidgetSubscriptionDto updateByUserAndId(User user, long id, WidgetSubscriptionDto data) {
         Optional<WidgetSubscription> optSubscription = widgetSubscriptionRepository.getByUserAndId(user, id);
         WidgetSubscription subscription = optSubscription.orElseThrow(() -> new NotFoundException("Cannot find this widget"));
+        IWidgetDefinition definition = applicationServiceService.getWidgetByServiceNameAndWidgetName(
+                subscription.getServiceName(), subscription.getWidgetName());
         if (data.getRefreshTime() > 0) {
-            IWidgetDefinition definition = getWidgetDefinition(subscription);
             if (data.getRefreshTime() < definition.getMinimumRefreshTime())
                 throw new BadRequestException("Refresh time is lower than the minimum");
             subscription.setRefreshTime(data.getRefreshTime());
         }
         if (data.getParams() != null) {
-            IWidgetDefinition definition = applicationServiceService.getWidgetByServiceNameAndWidgetName(
-                    subscription.getServiceName(), subscription.getWidgetName());
-            for (ParamValueDto param : data.getParams()) {
+               for (ParamValueDto param : data.getParams()) {
                 definition.validateParam(param);
                 for (WidgetParam wParam : subscription.getParams()) {
                     if (wParam.getName().equals(param.getName())) {
@@ -104,10 +104,10 @@ public class WidgetSubscriptionService {
             }
         }
         widgetSubscriptionRepository.save(subscription);
-        return new WidgetSubscriptionDto(subscription);
+        return new WidgetSubscriptionDto(definition, subscription);
     }
 
-    private IWidgetDefinition getWidgetDefinition(WidgetSubscription widgetSubscription) {
+    public IWidgetDefinition getWidgetDefinition(WidgetSubscription widgetSubscription) {
         Optional<IWidgetDefinition> widget = Arrays.stream(widgets)
                 .filter(w -> w.getService().getName().equals(widgetSubscription.getServiceName()) && w.getName().equals(widgetSubscription.getWidgetName()))
                 .findFirst();

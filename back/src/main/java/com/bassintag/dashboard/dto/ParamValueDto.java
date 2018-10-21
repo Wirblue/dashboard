@@ -46,4 +46,8 @@ public class ParamValueDto {
     public int asInt() {
         return Integer.parseInt(value);
     }
+
+    public boolean asBoolean() {
+        return Boolean.parseBoolean(value);
+    }
 }
