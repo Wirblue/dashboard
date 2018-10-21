@@ -14,7 +14,7 @@ export class ParamComponent implements OnInit {
   @Input('param') param: WidgetParam;
 
   a = {
-    'int': 'integer',
+    'integer': 'number',
     'password': 'password',
     'boolean': 'checkbox',
     'string': 'text',
@@ -25,10 +25,10 @@ export class ParamComponent implements OnInit {
   }
 
   getParamType(type: string): string {
-    if (this.a) {
+    if (this.a[type]) {
       return this.a[type];
     }
-    return 'text';
+    return 'password';
   }
 
 }
