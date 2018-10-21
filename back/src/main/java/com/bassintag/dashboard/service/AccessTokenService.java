@@ -36,6 +36,7 @@ public class AccessTokenService {
 
     public void saveAccessToken(IOAuthService service, User user, String code) {
         AccessToken token;
+        long time = System.currentTimeMillis() / 1000;
         try {
             token = service.createAccessToken(code);
         } catch (IOException e) {
@@ -43,6 +44,7 @@ public class AccessTokenService {
         }
         token.setUser(user);
         token.setService(service.getName());
+        token.setCreatedAt(time);
         deleteByUserAndService(user, service.getName());
         repository.save(token);
     }
