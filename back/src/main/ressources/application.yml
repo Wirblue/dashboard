@@ -1,0 +1,52 @@
+spring:
+  datasource:         
+    url:
+    driver-class-name:
+    username:
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  jackson:
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+
+app:
+  weather:
+    key:
+    weather-url: http://api.openweathermap.org/data/2.5/weather
+    icon-url: https://openweathermap.org/img/w/
+  binance:
+    base-url: https://api.binance.com
+  riot-games:
+    key:
+    base-url: https://euw1.api.riotgames.com
+    static-base-url: https://ddragon.leagueoflegends.com
+  country:
+    base-url: https://restcountries.eu/rest/v2
+  cat:
+    base-url: https://api.thecatapi.com/v1
+  auth:
+    redirect-url: http://localhost:8080/auth/callback
+    google:
+      id:
+      secret:
+    spotify:
+      id:
+      secret:
+    twitch:
+      id:
+      secret:
+
+jwt:
+  secret:
+  expiration: 864000000
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE" > back/src/main/resources/application.yml' -- --all
